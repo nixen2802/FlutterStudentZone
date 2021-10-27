@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'signin.dart';
+=======
+import 'package:studentzone/screens/splashscreen.dart';
+import 'screens/splashscreen.dart';
+import 'screens/login.dart';
+import 'screens/register.dart';
+import 'screens/profile.dart';
+import 'screens/base.dart';
+import 'package:provider/provider.dart';
+>>>>>>> 50f7d40b65bda2a456a2df03f44d1bb7420499fb
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,24 +22,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'StudentZone'),
+      title: 'Student Zone',
+      theme: new ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
+      home: splashscreen(),
+      routes: {
+        splashscreen.routeName: (context) => splashscreen(),
+        login.routeName: (context) => login(),
+        register.routeName: (context) => register(),
+        profile.routeName: (context) => profile(),
+        base.routeName: (context) => base(),
+      },
     );
   }
 }
 
+<<<<<<< HEAD
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -289,3 +298,29 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+=======
+// class MyHomePage extends StatefulWidget {
+//   MyHomePage({Key? key, required this.title}) : super(key: key);
+
+//   final String title;
+
+//   @override
+//   _MyHomePageState createState() => _MyHomePageState();
+// }
+
+// class _MyHomePageState extends State<MyHomePage> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         resizeToAvoidBottomInset: false,
+//         appBar: AppBar(
+//           title: Text(widget.title),
+//           backgroundColor: Colors.red,
+//         ),
+        
+     
+
+//         );
+//   }
+// }
+>>>>>>> 50f7d40b65bda2a456a2df03f44d1bb7420499fb
