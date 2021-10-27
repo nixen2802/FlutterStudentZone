@@ -4,7 +4,6 @@ import 'package:studentzone/screens/register.dart';
 import 'login.dart';
 import 'register.dart';
 
-
 class splashscreen extends StatefulWidget {
   static const routeName = '/splashscreen';
   @override
@@ -18,19 +17,23 @@ class _splashscreenState extends State<splashscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-      ),
+     
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(padding: EdgeInsets.all(80.0)),
-            Center(
-              child: Text("StudentZone",
-                  style: TextStyle(color: Colors.red, fontSize: 30)),
-            ),
-            Padding(padding: EdgeInsets.all(40.0)),
+            // Padding(padding: EdgeInsets.all(80.0)),
+            CircleAvatar(
+                radius: 250,
+                
+                backgroundColor: Colors.white,
+                child: Image.asset('images/logo.png')),
+            Padding(padding: EdgeInsets.all(30.0)),
+            // Center(
+            //   child: Text("StudentZone",
+            //       style: TextStyle(color: Colors.red, fontSize: 30)),
+            // ),
+            // Padding(padding: EdgeInsets.all(40.0)),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -44,8 +47,7 @@ class _splashscreenState extends State<splashscreen> {
                   new RaisedButton(
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => login()),
+                        MaterialPageRoute(builder: (context) => login()),
                         (_) => false,
                       );
                     },
@@ -60,8 +62,7 @@ class _splashscreenState extends State<splashscreen> {
                   new RaisedButton(
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => register()),
+                        MaterialPageRoute(builder: (context) => register()),
                         (_) => false,
                       );
                     },

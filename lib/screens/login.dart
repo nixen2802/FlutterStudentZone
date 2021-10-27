@@ -10,6 +10,7 @@ class login extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.red,
+        title:Text("StudentZone")
       ),
       body: new Container(
           padding: new EdgeInsets.all(32.0),
