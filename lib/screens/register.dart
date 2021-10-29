@@ -6,15 +6,10 @@ class register extends StatelessWidget {
   static const routeName = '/register';
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.red,
-      ),
-
-
-     body: ListView(shrinkWrap: true, children: [
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(backgroundColor: Colors.red, title: Text("StudentZone")),
+        body: ListView(shrinkWrap: true, children: [
           new Container(
               padding: new EdgeInsets.all(32.0),
               child: new Center(
@@ -74,9 +69,8 @@ class register extends StatelessWidget {
                   Padding(padding: EdgeInsets.all(10.0)),
                   new RaisedButton(
                     onPressed: () {
-                     Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => base()),
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => base()),
                         (_) => false,
                       );
                     },
@@ -90,9 +84,6 @@ class register extends StatelessWidget {
                   ),
                 ],
               )))
-        ])
-
-
-    );
+        ]));
   }
 }
