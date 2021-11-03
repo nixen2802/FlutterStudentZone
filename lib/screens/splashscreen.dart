@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:studentzone/screens/login1.dart';
 import 'package:studentzone/screens/register.dart';
+import 'package:studentzone/screens/register1.dart';
 import 'login.dart';
 import 'register.dart';
 
@@ -47,7 +49,7 @@ class _splashscreenState extends State<splashscreen> {
                   new RaisedButton(
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => login()),
+                        MaterialPageRoute(builder: (context) => login1()),
                         (_) => false,
                       );
                     },
@@ -62,7 +64,7 @@ class _splashscreenState extends State<splashscreen> {
                   new RaisedButton(
                     onPressed: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => register()),
+                        MaterialPageRoute(builder: (context) => register1()),
                         (_) => false,
                       );
                     },

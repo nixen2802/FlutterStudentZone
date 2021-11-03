@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'base.dart';
 import 'profile.dart';
 
-class register extends StatelessWidget {
+class register extends StatefulWidget {
   static const routeName = '/register';
+
+  @override
+  _registerState createState() => _registerState();
+}
+
+class _registerState extends State<register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

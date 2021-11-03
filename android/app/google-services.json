@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "695243421473",
+    "project_id": "studentzone-55d7c",
+    "storage_bucket": "studentzone-55d7c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695243421473:android:8348520e7f36df7c5d3060",
+        "android_client_info": {
+          "package_name": "com.example.studentzone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "695243421473-i8dgvrfpq6vjf6ca9ma5jcvc1bcde5ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxNek9i4bGBRuD0af94Xw0ReBuZl7-x1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695243421473-i8dgvrfpq6vjf6ca9ma5jcvc1bcde5ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
