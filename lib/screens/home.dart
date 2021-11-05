@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class home extends StatefulWidget {
   @override
@@ -14,25 +15,73 @@ class _homeState extends State<home> {
         backgroundColor: Colors.red,
         title:Text("StudentZone")
       ),
-       body: new Container(
-      decoration: new BoxDecoration(color: Colors.white),
-     
-      child:Container( 
-        padding: new EdgeInsets.fromLTRB(5, 10, 5, 2),
-       child:Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        // Text("home"),
-       
-        new TextField(
-          decoration: InputDecoration(
-              hintText: 'Search items',
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black, width: 2.0))),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-      ]),
-    ))
-    );
-  }
+   body: StreamBuilder(
+
+stream: FirebaseFirestore.instance.collection('product').snapshots(),
+builder: (context, snapshot){
+
+if(!snapshot.hasData) return const Text('loading....');
+
+return ListView.builder(
+itemExtent: 80.0,
+itemCount: (snapshot.data! as QuerySnapshot).docs.length,
+itemBuilder: (context, index) =>
+_buildListItem(context, (snapshot.data! as QuerySnapshot).docs[index]),
+
+);
+}));
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// @override
+
+Widget _buildListItem(BuildContext context, DocumentSnapshot document ){
+return ListTile(
+title: Row(
+children: [
+
+Expanded(
+child: Text(
+document['Name'],
+style: Theme.of(context).textTheme.headline,
+),
+),
+Container(
+decoration: const BoxDecoration(
+color: Color(0xffdd),
+),
+padding: const EdgeInsets.all(10.0),
+child: Text(
+document['price'].toString(),
+style: Theme.of(context).textTheme.display1,
+
+),
+),
+],
+),
+
+);
+
+
+}
+
+
+
+
+
+
+}
+
