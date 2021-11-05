@@ -1,15 +1,22 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:carousel_pro/carousel_pro.dart';
+
+ 
 class home extends StatefulWidget {
+  
   @override
   _homeState createState() => _homeState();
 }
 
 class _homeState extends State<home> {
+  
   @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
+      
         appBar: AppBar(backgroundColor: Colors.red, title: Text("StudentZone")),
         body:Container(
           
