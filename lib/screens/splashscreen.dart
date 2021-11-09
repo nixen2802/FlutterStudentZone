@@ -27,7 +27,7 @@ class _splashscreenState extends State<splashscreen> {
             CircleAvatar(
                 radius: 250,
                 backgroundColor: Colors.white,
-                child: Image.asset('images/logo.png')),
+                child: Image.asset('assets/images/logo.png')),
             Padding(padding: EdgeInsets.all(30.0)),
             // Center(
             //   child: Text("StudentZone",

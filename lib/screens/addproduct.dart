@@ -9,8 +9,10 @@ import 'package:studentzone/widgets/mybutton.dart';
 import 'package:studentzone/widgets/mytextformfield.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
+import 'package:fluttertoast/fluttertoast.dart';
 
 String url = "null";
+String imagecheck = " ";
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 String p =
@@ -18,6 +20,7 @@ String p =
 
 RegExp regExp = new RegExp(p);
 bool obserText = true;
+final fieldText = TextEditingController();
 final TextEditingController ProductName = TextEditingController();
 final TextEditingController Price = TextEditingController();
 bool isLoading = false;
@@ -53,8 +56,17 @@ class _addproductState extends State<addproduct> {
             );
         url = await storage.ref(fileName).getDownloadURL();
         print(url);
+
+        Fluttertoast.showToast(
+          msg: "Image uploaded successfully",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+        );
         // Refresh the UI
-        setState(() {});
+        setState(() {
+          imagecheck = "Image uploaded successfully";
+        });
       } on FirebaseException catch (error) {
         print(error);
       }
@@ -66,17 +78,29 @@ class _addproductState extends State<addproduct> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(10),
       decoration: new BoxDecoration(color: Colors.white),
       width: MediaQuery.of(context).size.width,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        ElevatedButton.icon(
-            onPressed: () => _upload('camera'),
-            icon: Icon(Icons.camera),
-            label: Text('camera')),
-        ElevatedButton.icon(
-            onPressed: () => _upload('gallery'),
-            icon: Icon(Icons.library_add),
-            label: Text('Gallery')),
+        new Container(
+          padding: EdgeInsets.fromLTRB(50, 75, 50, 25),
+          child: Row(
+            children: [
+              ElevatedButton.icon(
+                  onPressed: () => _upload('camera'),
+                  icon: Icon(Icons.camera),
+                  label: Text('camera')),
+              SizedBox(
+                width: 15,
+              ),
+              ElevatedButton.icon(
+                  onPressed: () => _upload('gallery'),
+                  icon: Icon(Icons.library_add),
+                  label: Text('Gallery')),
+            ],
+          ),
+        ),
+        Text(imagecheck),
         Text(
           "Add Product",
           style: TextStyle(
@@ -98,12 +122,16 @@ class _addproductState extends State<addproduct> {
         SizedBox(
           height: 10,
         ),
-        MyButton(
-          name: "add",
-          onPressed: () {
-            submit();
-          },
-        )
+        isLoading == false
+            ? MyButton(
+                name: "add",
+                onPressed: () {
+                  submit();
+                },
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ]),
     );
   }
@@ -127,6 +155,19 @@ class _addproductState extends State<addproduct> {
         "image": url,
         // "image": AssetImage("images/logo.png")
       });
+
+      setState(() {
+        isLoading = false;
+      });
+      ProductName.clear();
+      Price.clear();
+      imagecheck = " ";
+
+      Fluttertoast.showToast(
+        msg: "product uploaded successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+      );
     } on PlatformException catch (error) {
       var message = "Please Check Your Internet Connection ";
       if (error.message != null) {
@@ -134,16 +175,14 @@ class _addproductState extends State<addproduct> {
       }
       _scaffoldKey.currentState!.showSnackBar(SnackBar(
         content: Text(message.toString()),
-        duration: Duration(milliseconds: 600),
+        duration: Duration(milliseconds: 1200),
         backgroundColor: Theme.of(context).primaryColor,
       ));
+
       setState(() {
         isLoading = false;
       });
     } catch (error) {
-      setState(() {
-        isLoading = false;
-      });
       _scaffoldKey.currentState!.showSnackBar(SnackBar(
         content: Text(error.toString()),
         duration: Duration(milliseconds: 600),
@@ -151,6 +190,18 @@ class _addproductState extends State<addproduct> {
       ));
 
       print(error);
+      ProductName.clear();
+      Price.clear();
+      imagecheck = " ";
+      Fluttertoast.showToast(
+        msg: "System error occured try contacting admin",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+      );
     }
+
+    // setState(() {
+    //   isLoading = false;
+    // });
   }
 }

@@ -35,8 +35,7 @@ dependencies:
   firebase_core : ^1.6.0
   image_picker: ^0.8.4+1
   firebase_storage: ^10.1.0
-  # image_picker: ^0.8.4+4
-  # carousel_pro: ^1.0.0
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
