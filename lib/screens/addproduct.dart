@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:studentzone/screens/profile.dart';
 import 'package:studentzone/widgets/mybutton.dart';
 import 'package:studentzone/widgets/mytextformfield.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -77,6 +78,7 @@ class _addproductState extends State<addproduct> {
 
   @override
   Widget build(BuildContext context) {
+    print(userUid);
     return Container(
       padding: EdgeInsets.all(10),
       decoration: new BoxDecoration(color: Colors.white),
@@ -153,6 +155,7 @@ class _addproductState extends State<addproduct> {
         "Name": ProductName.text,
         "price": Price.text,
         "image": url,
+        "userid": userUid,
         // "image": AssetImage("images/logo.png")
       });
 
