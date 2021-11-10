@@ -1,11 +1,15 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:studentzone/widgets/changescreen.dart';
 
- var userUid = 'TcwJYWAC24aVJJEzWpWrDd7tLwf2';
+import 'login1.dart';
+
+var userUid = 'Hv1CMbMn4cdO06ObbqlFrYu6W8Z2';
 var name;
 var email;
 var phonenubmer;
@@ -17,6 +21,13 @@ Future<void> getUserUid() async {
   userUid = user.uid;
   // here you write the codes to input the data into firestore
 }
+
+Future<void> signOut() async {
+  FirebaseAuth auth = FirebaseAuth.instance;
+  await auth.signOut();
+  // here you write the codes to input the data into firestore
+}
+
 // void getUserUid() {
 //   User? myUser = FirebaseAuth.instance.currentUser;
 //   userUid = myUser!.uid;
@@ -36,6 +47,7 @@ class _profileState extends State<profile> {
     //  body:();
 
     getUserUid();
+
     return Scaffold(
         body: StreamBuilder(
             stream: FirebaseFirestore.instance.collection('User').snapshots(),
@@ -52,7 +64,6 @@ class _profileState extends State<profile> {
               // User? myUser = FirebaseAuth.instance.currentUser;
               // print(FirebaseAuth.instance);
               //  userUid = myUser!.uid;
-             
 
               myDoc.forEach((myDoc) {
                 print(myDoc['UserId']);
@@ -113,9 +124,14 @@ class _profileState extends State<profile> {
                       Padding(padding: EdgeInsets.fromLTRB(100, 20, 100, 0)),
                       new RaisedButton(
                         onPressed: () {
-                          print("Null");
+                          signOut();
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (ctx) => login1(),
+                            ),
+                          );
                         },
-                        child: Text('ADDS'),
+                        child: Text('Log Out'),
                         color: Colors.white,
                         textColor: Colors.black,
                         shape: RoundedRectangleBorder(

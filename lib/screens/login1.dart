@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,6 +38,8 @@ class _login1State extends State<login1> {
           .signInWithEmailAndPassword(
               email: email.text, password: password.text);
       print(result);
+      Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (ctx) => base()));
     } on PlatformException catch (error) {
       var message = "Please Check Your Internet Connection ";
       if (error.message != null) {
@@ -65,8 +66,7 @@ class _login1State extends State<login1> {
       ));
     }
 
-  Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (ctx) => base()));
+    
     setState(() {
       isLoading = false;
     });
@@ -150,6 +150,10 @@ class _login1State extends State<login1> {
                     ? MyButton(
                         onPressed: () {
                           vaildation();
+                          setState(() {
+                            email.clear();
+                            password.clear();
+                          });
                         },
                         name: "Login",
                       )
