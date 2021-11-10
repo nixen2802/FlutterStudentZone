@@ -18,6 +18,7 @@ class _myproductsState extends State<myproducts> {
                 // child:_buildImageSlider(),
                 stream: FirebaseFirestore.instance
                     .collection('product')
+                    .where('userid',isEqualTo: userUid)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return const Text('loading....');
@@ -73,7 +74,7 @@ class _myproductsState extends State<myproducts> {
     var price = document['price'];
     var name = document['Name'];
     // var img = Image.network(document['image']);
-    if (document['userid'] == userUid) {
+    
       return Card(
         child: Container(
           height: height * 0.3,
@@ -118,9 +119,7 @@ class _myproductsState extends State<myproducts> {
           ),
         ),
       );
-    } else {
-      return SizedBox.shrink();
-    }
+    
   }
 }
 
