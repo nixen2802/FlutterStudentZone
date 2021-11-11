@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studentzone/screens/productdetail.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:carousel_pro/carousel_pro.dart';
 
 class home extends StatefulWidget {
@@ -11,61 +13,72 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   @override
   Widget build(BuildContext context) {
+    CollectionReference products =
+        FirebaseFirestore.instance.collection('product');
     return Scaffold(
-        appBar: AppBar(backgroundColor: Colors.red, title: Text("StudentZone")),
-        body: Container(
+      appBar: AppBar(backgroundColor: Colors.red, title: Text("StudentZone")),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 20, bottom: 20),
+            child: CarouselSlider(
+              options: CarouselOptions(
+                height: 200.0,
+                // viewportFraction: 0.8,
+                aspectRatio: 16 / 9,
+                enableInfiniteScroll: true,
+                autoPlayInterval: Duration(milliseconds: 2500),
+                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlayCurve: Curves.fastOutSlowIn,
+                autoPlay: true,
+                enlargeCenterPage: true,
+              ),
+              items: [1, 2, 3, 4, 5].map((i) {
+                return Builder(
+                  builder: (BuildContext context) {
+                    return Container(
+                        width: MediaQuery.of(context).size.width,
+                        // margin: EdgeInsets.symmetric(horizontal: 0.0),
+                        decoration: BoxDecoration(color: Colors.amber),
+                        child: Text(
+                          'text $i',
+                          style: TextStyle(fontSize: 16.0),
+                        ));
+                  },
+                );
+              }).toList(),
+            ),
+          ),
+          Expanded(
             child: StreamBuilder(
+              // child:_buildImageSlider(),
+              stream: FirebaseFirestore.instance
+                  .collection('product')
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) return const Text('loading....');
 
-                // child:_buildImageSlider(),
-                stream: FirebaseFirestore.instance
-                    .collection('product')
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) return const Text('loading....');
-
-                  return GridView.builder(
-                    // itemExtent: 80.0,
-                    itemCount: (snapshot.data! as QuerySnapshot).docs.length,
-                    itemBuilder: (context, index) => _buildListItem(
-                        context, (snapshot.data! as QuerySnapshot).docs[index]),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 8.0 / 10.0,
-                      crossAxisCount: 2,
-                    ),
-                  );
-                })));
+                return GridView.builder(
+                  // itemExtent: 80.0,
+                  itemCount: (snapshot.data! as QuerySnapshot).docs.length,
+                  itemBuilder: (context, index) => _buildListItem(context,
+                      (snapshot.data! as QuerySnapshot).docs[index]),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 8.0 / 10.0,
+                    crossAxisCount: 2,
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
 // @override
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
-// return ListTile(
-// title: Row(
-// children: [
-
-// Expanded(
-// child: Text(
-// document['Name'],
-// style: Theme.of(context).textTheme.headline,
-// ),
-// ),
-// Container(
-// decoration: const BoxDecoration(
-// color: Color(0xffdd),
-// ),
-// padding: const EdgeInsets.all(10.0),
-// child: Text(
-// document['price'].toString(),
-// style: Theme.of(context).textTheme.display1,
-
-// ),
-// ),
-// ],
-// ),
-
-// );
-
-// }
     DocumentSnapshot doc = document;
     double width, height;
     width = MediaQuery.of(context).size.width;
@@ -75,17 +88,19 @@ class _homeState extends State<home> {
     // var img = Image.network(document['image']);
     return GestureDetector(
         onTap: () => {
-              // Navigator.of(context).pushReplacement(
-              //                     MaterialPageRoute(
-              //                       builder: (ctx) => productdetail(),
-              //                     ),)
-
-              Navigator.push(
-                context,
+              Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => new ProductDetail(doc),
+                  builder: (ctx) => productdetail(
+                      price: price, name: name, image: document['image']),
                 ),
               )
+
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => new ProductDetail(doc),
+              //   ),
+              // )
             },
         child: Card(
           child: Container(

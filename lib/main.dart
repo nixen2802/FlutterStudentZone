@@ -12,6 +12,7 @@ import 'screens/register.dart';
 import 'screens/register1.dart';
 import 'screens/profile.dart';
 import 'screens/base.dart';
+import 'screens/productdetail.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
         login1.routeName: (context) => login1(),
         register.routeName: (context) => register1(),
         register.routeName: (context) => register(),
-        productdetail.routeName: (context)=>productdetail(),
+        productdetail.routeName: (context)=>productdetail(price: 0, name: "None", image: "",),
         profile.routeName: (context) => profile(),
         base.routeName: (context) => base(),
       },
