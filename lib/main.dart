@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:studentzone/provider/productprovider.dart';
 import 'package:studentzone/screens/home.dart';
 import 'package:studentzone/screens/login1.dart';
+import 'package:studentzone/screens/productdetail.dart';
 import 'package:studentzone/screens/splashscreen.dart';
 import 'screens/splashscreen.dart';
 import 'screens/login.dart';
+import 'screens/productdetail.dart';
 import 'screens/register.dart';
 import 'screens/register1.dart';
 import 'screens/profile.dart';
@@ -54,6 +56,7 @@ class MyApp extends StatelessWidget {
         login1.routeName: (context) => login1(),
         register.routeName: (context) => register1(),
         register.routeName: (context) => register(),
+        productdetail.routeName: (context)=>productdetail(),
         profile.routeName: (context) => profile(),
         base.routeName: (context) => base(),
       },
