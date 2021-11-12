@@ -15,6 +15,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 String url = "null";
 String imagecheck = " ";
 String dropdownValue = 'Others';
+String imglink =
+    "https://firebasestorage.googleapis.com/v0/b/studentzone-55d7c.appspot.com/o/uploadimg.jpg?alt=media&token=80d71180-2ba7-46c8-b729-007c66558dd4";
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 String p =
@@ -56,8 +58,14 @@ class _addproductState extends State<addproduct> {
         await storage.ref(fileName).putFile(
               imageFile,
             );
+
         url = await storage.ref(fileName).getDownloadURL();
-        print(url);
+        // if (imglink !="https://firebasestorage.googleapis.com/v0/b/studentzone-55d7c.appspot.com/o/uploadimg.jpg?alt=media&token=80d71180-2ba7-46c8-b729-007c66558dd4") {
+        //   String imagelink = imglink.replaceAll(new 
+        //           RegExp(r'https://firebasestorage.googleapis.com/v0/b/dial-in-2345.appspot.com/o/'), '');
+        //   FirebaseStorage.instance.ref().child(imagelink).delete();
+        // }
+        imglink = url;
 
         Fluttertoast.showToast(
           msg: "Image uploaded successfully",
@@ -79,13 +87,28 @@ class _addproductState extends State<addproduct> {
 
   @override
   Widget build(BuildContext context) {
+    // if (imagecheck != " ") {
+    //   imglink = " ";
+    // }
     return Container(
       padding: EdgeInsets.all(10),
       decoration: new BoxDecoration(color: Colors.white),
       width: MediaQuery.of(context).size.width,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         new Container(
-          padding: EdgeInsets.fromLTRB(50, 75, 50, 25),
+          // width: 160,
+          height: 250,
+
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              // fit: BoxFit.fill,
+
+              image: NetworkImage(imglink),
+            ),
+          ),
+        ),
+        new Container(
+          padding: EdgeInsets.fromLTRB(75, 0, 50, 25),
           child: Row(
             children: [
               ElevatedButton.icon(
@@ -124,6 +147,7 @@ class _addproductState extends State<addproduct> {
         SizedBox(
           height: 10,
         ),
+        Text('Category'),
         DropdownButton<String>(
           value: dropdownValue,
           icon: Icon(Icons.arrow_drop_down_circle),
@@ -141,8 +165,13 @@ class _addproductState extends State<addproduct> {
               dropdownValue = newValue!;
             });
           },
-          items: <String>['Others', 'Electronics', 'Books & Study Materials', 'Fashion', 'Furniture']
-              .map<DropdownMenuItem<String>>((String value) {
+          items: <String>[
+            'Others',
+            'Electronics',
+            'Books & Study Materials',
+            'Fashion',
+            'Furniture'
+          ].map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
               child: Text(value),
@@ -178,7 +207,7 @@ class _addproductState extends State<addproduct> {
         "price": Price.text,
         "image": url,
         "userid": userUid,
-        "category":dropdownValue,
+        "category": dropdownValue,
         // "image": AssetImage("images/logo.png")
       });
 
