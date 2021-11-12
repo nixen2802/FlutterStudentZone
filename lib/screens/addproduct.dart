@@ -14,6 +14,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 String url = "null";
 String imagecheck = " ";
+String dropdownValue = 'Others';
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 String p =
@@ -78,7 +79,6 @@ class _addproductState extends State<addproduct> {
 
   @override
   Widget build(BuildContext context) {
-    print(userUid);
     return Container(
       padding: EdgeInsets.all(10),
       decoration: new BoxDecoration(color: Colors.white),
@@ -124,6 +124,34 @@ class _addproductState extends State<addproduct> {
         SizedBox(
           height: 10,
         ),
+        DropdownButton<String>(
+          value: dropdownValue,
+          icon: Icon(Icons.arrow_drop_down_circle),
+          iconSize: 24,
+          elevation: 18,
+          isExpanded: true,
+          style: const TextStyle(color: Colors.black),
+          underline: Container(
+            height: 2,
+            width: double.infinity,
+            color: Colors.red,
+          ),
+          onChanged: (String? newValue) {
+            setState(() {
+              dropdownValue = newValue!;
+            });
+          },
+          items: <String>['Others', 'Electronics', 'Books & Study Materials', 'Fashion', 'Furniture']
+              .map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+        ),
+        SizedBox(
+          height: 10,
+        ),
         isLoading == false
             ? MyButton(
                 name: "add",
@@ -146,16 +174,11 @@ class _addproductState extends State<addproduct> {
       });
 
       FirebaseFirestore.instance.collection("product").doc().set({
-        // "UserName": userName.text,
-        // "UserId": result.user!.uid,
-        // "UserEmail": email.text,
-        // "UserAddress": address.text,
-        // "UserGender": isMale == true ? "Male" : "Female",
-        // "UserNumber": phoneNumber.text,
         "Name": ProductName.text,
         "price": Price.text,
         "image": url,
         "userid": userUid,
+        "category":dropdownValue,
         // "image": AssetImage("images/logo.png")
       });
 

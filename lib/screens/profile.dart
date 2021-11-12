@@ -66,11 +66,11 @@ class _profileState extends State<profile> {
               //  userUid = myUser!.uid;
 
               myDoc.forEach((myDoc) {
-                print(myDoc['UserId']);
-                print(userUid);
+                // print(myDoc['UserId']);
+                // print(userUid);
                 if (myDoc['UserId'] == userUid) {
                   email = myDoc["UserEmail"];
-                  print(email);
+                  // print(email);
                   // userImage: myDoc.data()["UserImage"];
                   address = myDoc["UserAddress"];
                   gender = myDoc["UserGender"];
