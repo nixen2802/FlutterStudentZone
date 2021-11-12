@@ -27,6 +27,7 @@ bool obserText = true;
 final fieldText = TextEditingController();
 final TextEditingController ProductName = TextEditingController();
 final TextEditingController Price = TextEditingController();
+final TextEditingController Description = TextEditingController();
 bool isLoading = false;
 
 class addproduct extends StatefulWidget {
@@ -60,11 +61,10 @@ class _addproductState extends State<addproduct> {
             );
 
         url = await storage.ref(fileName).getDownloadURL();
-        // if (imglink !="https://firebasestorage.googleapis.com/v0/b/studentzone-55d7c.appspot.com/o/uploadimg.jpg?alt=media&token=80d71180-2ba7-46c8-b729-007c66558dd4") {
-        //   String imagelink = imglink.replaceAll(new 
-        //           RegExp(r'https://firebasestorage.googleapis.com/v0/b/dial-in-2345.appspot.com/o/'), '');
-        //   FirebaseStorage.instance.ref().child(imagelink).delete();
-        // }
+        if (imglink !=
+            "https://firebasestorage.googleapis.com/v0/b/studentzone-55d7c.appspot.com/o/uploadimg.jpg?alt=media&token=80d71180-2ba7-46c8-b729-007c66558dd4") {
+          FirebaseStorage.instance.refFromURL(imglink).delete();
+        }
         imglink = url;
 
         Fluttertoast.showToast(
@@ -147,6 +147,13 @@ class _addproductState extends State<addproduct> {
         SizedBox(
           height: 10,
         ),
+        MyTextFormField(
+          name: "Descrption",
+          controller: Description,
+        ),
+        SizedBox(
+          height: 10,
+        ),
         Text('Category'),
         DropdownButton<String>(
           value: dropdownValue,
@@ -202,9 +209,14 @@ class _addproductState extends State<addproduct> {
         isLoading = true;
       });
 
+      if (url == "null") {
+        url = imglink;
+      }
+
       FirebaseFirestore.instance.collection("product").doc().set({
         "Name": ProductName.text,
         "price": Price.text,
+        "description": Description.text,
         "image": url,
         "userid": userUid,
         "category": dropdownValue,
@@ -216,8 +228,11 @@ class _addproductState extends State<addproduct> {
       });
       ProductName.clear();
       Price.clear();
+      Description.clear();
       imagecheck = " ";
-
+      url = "null";
+      imglink =
+          "https://firebasestorage.googleapis.com/v0/b/studentzone-55d7c.appspot.com/o/uploadimg.jpg?alt=media&token=80d71180-2ba7-46c8-b729-007c66558dd4";
       Fluttertoast.showToast(
         msg: "product uploaded successfully",
         toastLength: Toast.LENGTH_SHORT,
@@ -247,6 +262,7 @@ class _addproductState extends State<addproduct> {
       print(error);
       ProductName.clear();
       Price.clear();
+      Description.clear();
       imagecheck = " ";
       Fluttertoast.showToast(
         msg: "System error occured try contacting admin",
