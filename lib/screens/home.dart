@@ -53,18 +53,110 @@ class _homeState extends State<home> {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
-                        width: MediaQuery.of(context).size.width,
-                        // margin: EdgeInsets.symmetric(horizontal: 0.0),
-                        decoration: BoxDecoration(color: Colors.amber),
-                        child: Text(
-                          'text $i',
-                          style: TextStyle(fontSize: 16.0),
-                        ));
+                      width: MediaQuery.of(context).size.width,
+                      // margin: EdgeInsets.symmetric(horizontal: 0.0),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage("assets/images/logo.png"),
+                        ),
+                      ),
+                    );
                   },
                 );
               }).toList(),
             ),
           ),
+          Container(
+              padding: EdgeInsets.all(10),
+              height: 120,
+              width: double.infinity,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Categories",
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(
+                            Icons.science_outlined,
+                          size: 38,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.purple,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(
+                          Icons.library_books,
+                          size: 38,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(
+                          Icons.construction,
+                          size: 38,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(
+                          Icons.checkroom_outlined,
+                          size: 38,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.tealAccent,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Icon(
+                          Icons.science_outlined,
+                          size: 38,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              )),
           Expanded(
             child: StreamBuilder(
               // child:_buildImageSlider(),
