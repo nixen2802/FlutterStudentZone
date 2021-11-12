@@ -26,23 +26,44 @@ class _productdetailState extends State<productdetail> {
                           builder: (ctx) => base(),
                         ),)
         ),
-        title: Text(widget.name),
+        title: Text("Details Page"),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 10),
-        child: Row(
+        child: Column(
           children: <Widget>[
-            Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(widget.image),
+            Center(
+              child: Container(
+                margin: EdgeInsets.all(12.0),
+                width: MediaQuery.of(context).size.width - 50,
+                height: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(widget.image),
+                  ),
+                  borderRadius: BorderRadius.circular(10)
                 ),
               ),
             ),
-            Text("Price of the product : " + widget.price),
+            Container(
+              padding: EdgeInsets.only(top: 8),
+              child: Divider(
+                height: 1,
+                thickness: 1,
+                indent: 20,
+                endIndent: 20,
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 20),
+              child: Column(
+                children: [
+                  Text("Product Name : " + widget.name),
+                  Text("Product Price : " + widget.price),
+                ],
+              ),
+            )
           ],
         ),
       ),
