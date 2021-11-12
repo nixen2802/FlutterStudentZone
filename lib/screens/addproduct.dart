@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -90,11 +91,13 @@ class _addproductState extends State<addproduct> {
     // if (imagecheck != " ") {
     //   imglink = " ";
     // }
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: new BoxDecoration(color: Colors.white),
-      width: MediaQuery.of(context).size.width,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    return ListView(
+      // padding: EdgeInsets.all(10),
+      // decoration: new BoxDecoration(color: Colors.white),
+      // width: MediaQuery.of(context).size.width,
+      // child: Column(crossAxisAlignment: CrossAxisAlignment.start, 
+      children: [
+        Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
         new Container(
           // width: 160,
           height: 250,
@@ -188,6 +191,7 @@ class _addproductState extends State<addproduct> {
         SizedBox(
           height: 10,
         ),
+        
         isLoading == false
             ? MyButton(
                 name: "add",
@@ -198,7 +202,14 @@ class _addproductState extends State<addproduct> {
             : Center(
                 child: CircularProgressIndicator(),
               ),
-      ]),
+            SizedBox(
+        height: 10,
+      ),
+      SizedBox(
+        height: 400,
+      ),
+  
+      ]
     );
   }
 
