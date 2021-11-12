@@ -5,12 +5,26 @@ import 'package:studentzone/screens/productdetail.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 // import 'package:carousel_pro/carousel_pro.dart';
 
+ScrollController mycontroller = ScrollController();
+bool closetopcontainer = false;
+
 class home extends StatefulWidget {
   @override
   _homeState createState() => _homeState();
 }
 
 class _homeState extends State<home> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    mycontroller.addListener(() {
+      setState(() {
+        closetopcontainer = mycontroller.offset > 50;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     CollectionReference products =
@@ -19,7 +33,9 @@ class _homeState extends State<home> {
       appBar: AppBar(backgroundColor: Colors.red, title: Text("StudentZone")),
       body: Column(
         children: [
-          Container(
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 1000),
+            height: closetopcontainer ? 0 : 230,
             padding: EdgeInsets.only(top: 20, bottom: 20),
             child: CarouselSlider(
               options: CarouselOptions(
@@ -52,17 +68,17 @@ class _homeState extends State<home> {
           Expanded(
             child: StreamBuilder(
               // child:_buildImageSlider(),
-              stream: FirebaseFirestore.instance
-                  .collection('product')
-                  .snapshots(),
+              stream:
+                  FirebaseFirestore.instance.collection('product').snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) return const Text('loading....');
 
                 return GridView.builder(
+                  controller: mycontroller,
                   // itemExtent: 80.0,
                   itemCount: (snapshot.data! as QuerySnapshot).docs.length,
-                  itemBuilder: (context, index) => _buildListItem(context,
-                      (snapshot.data! as QuerySnapshot).docs[index]),
+                  itemBuilder: (context, index) => _buildListItem(
+                      context, (snapshot.data! as QuerySnapshot).docs[index]),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 8.0 / 10.0,
                     crossAxisCount: 2,
