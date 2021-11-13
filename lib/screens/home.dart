@@ -220,7 +220,7 @@ class _homeState extends State<home> {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (ctx) => productdetail(
-                      price: price, name: name, image: document['image']),
+                      doc:doc),
                 ),
               )
 

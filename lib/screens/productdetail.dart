@@ -4,12 +4,14 @@ import 'package:studentzone/screens/base.dart';
 class productdetail extends StatefulWidget {
   static const routeName = '/productdetail';
 
-  const productdetail({Key? key, required this.price, required this.name, required this.image}) : super(key: key);
+  const productdetail(
+      {Key? key,
+      
+      required this.doc})
+      : super(key: key);
 
   // Declare a field that holds the Todo.
-  final name;
-  final price;
-  final image;
+  final doc;
   @override
   _productdetailState createState() => _productdetailState();
 }
@@ -20,12 +22,12 @@ class _productdetailState extends State<productdetail> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-       icon: Icon(Icons.arrow_back, color: Colors.black),
-        onPressed: () => Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (ctx) => base(),
-                        ),)
-        ),
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (ctx) => base(),
+                  ),
+                )),
         title: Text("Details Page"),
       ),
       body: Container(
@@ -38,12 +40,11 @@ class _productdetailState extends State<productdetail> {
                 width: MediaQuery.of(context).size.width - 50,
                 height: 200,
                 decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: NetworkImage(widget.image),
-                  ),
-                  borderRadius: BorderRadius.circular(10)
-                ),
+                    image: DecorationImage(
+                      fit: BoxFit.fill,
+                      image: NetworkImage(widget.doc['image']),
+                    ),
+                    borderRadius: BorderRadius.circular(10)),
               ),
             ),
             Container(
@@ -59,8 +60,9 @@ class _productdetailState extends State<productdetail> {
               padding: EdgeInsets.only(top: 20),
               child: Column(
                 children: [
-                  Text("Product Name : " + widget.name),
-                  Text("Product Price : " + widget.price),
+                  Text("Product Name : " + widget.doc['Name']
+                  ),
+                  Text("Product Price : " + widget.doc['price']),
                 ],
               ),
             )

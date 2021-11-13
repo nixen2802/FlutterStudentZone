@@ -55,6 +55,7 @@ class _categoryState extends State<category> {
 // @override
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
+    DocumentSnapshot doc = document;
     double width, height;
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
@@ -66,7 +67,7 @@ class _categoryState extends State<category> {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (ctx) => productdetail(
-                      price: price, name: name, image: document['image']),
+                      doc:doc),
                 ),
               )
 

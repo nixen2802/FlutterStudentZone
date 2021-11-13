@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studentzone/provider/productprovider.dart';
@@ -17,12 +18,16 @@ import 'screens/productdetail.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+DocumentSnapshot detaildoc =(FirebaseFirestore.instance.collection('product').snapshots() as QuerySnapshot).docs[0];
+
+// DocumentSnapshot doc1 = detaildoc[0];
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  
+
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -37,7 +42,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: ThemeData(
-          primaryColor:Colors.red,
+          primaryColor: Colors.red,
           iconTheme: IconThemeData(color: Colors.black),
         ),
         debugShowCheckedModeBanner: false,
@@ -45,24 +50,25 @@ class MyApp extends StatelessWidget {
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             // if (snapshot.hasData) {
-              // return base();
+            // return base();
             // } else {
-              return splashscreen();
+            return splashscreen();
             // }
-           
           },
         ),
         routes: {
-        splashscreen.routeName: (context) => splashscreen(),
-        login.routeName: (context) => login(),
-        login1.routeName: (context) => login1(),
-        register.routeName: (context) => register1(),
-        register.routeName: (context) => register(),
-        category.routeName: (context) => category(),
-        productdetail.routeName: (context)=>productdetail(price: 0, name: "None", image: "",),
-        profile.routeName: (context) => profile(),
-        base.routeName: (context) => base(),
-      },
+          splashscreen.routeName: (context) => splashscreen(),
+          login.routeName: (context) => login(),
+          login1.routeName: (context) => login1(),
+          register.routeName: (context) => register1(),
+          register.routeName: (context) => register(),
+          category.routeName: (context) => category(),
+          productdetail.routeName: (context) => productdetail(
+                doc: detaildoc,
+              ),
+          profile.routeName: (context) => profile(),
+          base.routeName: (context) => base(),
+        },
       ),
     );
   }
