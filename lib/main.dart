@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studentzone/provider/productprovider.dart';
+import 'package:studentzone/screens/category.dart';
 import 'package:studentzone/screens/home.dart';
 import 'package:studentzone/screens/login1.dart';
 import 'package:studentzone/screens/productdetail.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         login1.routeName: (context) => login1(),
         register.routeName: (context) => register1(),
         register.routeName: (context) => register(),
+        category.routeName: (context) => category(),
         productdetail.routeName: (context)=>productdetail(price: 0, name: "None", image: "",),
         profile.routeName: (context) => profile(),
         base.routeName: (context) => base(),

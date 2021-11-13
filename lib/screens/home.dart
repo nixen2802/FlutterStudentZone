@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:studentzone/screens/category.dart';
 import 'package:studentzone/screens/productdetail.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:studentzone/widgets/categorybutton.dart';
 // import 'package:carousel_pro/carousel_pro.dart';
 
 ScrollController mycontroller = ScrollController();
@@ -92,85 +94,86 @@ class _homeState extends State<home> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          SizedBox(width: 10,),
-                          Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Icon(
-                              Icons.science_outlined,
-                              size: 38,
-                              color: Colors.white,
-                            ),
-                          ),
                           SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              color: Colors.purple,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Icon(
-                              Icons.library_books,
-                              size: 38,
-                              color: Colors.white,
-                            ),
-                          ),
+                          //
+                          categorybutton(
+                              caticons: Icons.library_books,
+                              coloricon: Colors.blue,
+                              categorytext: 'Books',
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (ctx) => category()));
+                                categoryName = "Books & Study Materials";
+                                // print("category");
+                              }),
                           SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Icon(
-                              Icons.construction,
-                              size: 38,
-                              color: Colors.white,
-                            ),
-                          ),
+                          //
+                          categorybutton(
+                              caticons: Icons.beach_access,
+                              coloricon: Colors.purple,
+                              categorytext: "Fashion",
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (ctx) => category()));
+                                categoryName = "Fashion";
+                                // print("category");
+                              }),
                           SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Icon(
-                              Icons.checkroom_outlined,
-                              size: 38,
-                              color: Colors.white,
-                            ),
-                          ),
+                          //
+                          categorybutton(
+                              caticons: Icons.connected_tv ,
+                              coloricon: Colors.green,
+                              categorytext: 'Furniture',
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (ctx) => category()));
+                                categoryName = "Furniture";
+                                // print("category");
+                              }),
                           SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              color: Colors.tealAccent,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Icon(
-                              Icons.science_outlined,
-                              size: 38,
-                              color: Colors.white,
-                            ),
+                          //
+                          
+                          categorybutton(
+                              caticons: Icons.devices_other_outlined,
+                              coloricon: Colors.red,
+                              categorytext: 'Electronics',
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (ctx) => category()));
+                                categoryName = "Electronics";
+
+                                // print("category");
+                              }),
+                          SizedBox(
+                            width: 10,
                           ),
-                          SizedBox(width: 10,),
+                          categorybutton(
+                              caticons: Icons.all_inclusive_outlined,
+                              coloricon: Colors.blue,
+                              categorytext: 'Others',
+                              onPressed: () {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (ctx) => category()));
+                                categoryName = "Others";
+
+                                // print("category");
+                              }),
+                          SizedBox(
+                            width: 10,
+                          ),
                         ],
                       )
                     ],

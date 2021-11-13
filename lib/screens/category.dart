@@ -3,22 +3,37 @@ import 'package:flutter/material.dart';
 import 'package:studentzone/screens/productdetail.dart';
 import 'package:studentzone/screens/profile.dart';
 
-class myproducts extends StatefulWidget {
+import 'base.dart';
+
+String categoryName = 'Others';
+
+class category extends StatefulWidget {
+  static const routeName = '/category';
   @override
-  _myproductsState createState() => _myproductsState();
+  _categoryState createState() => _categoryState();
 }
 
-class _myproductsState extends State<myproducts> {
+class _categoryState extends State<category> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(backgroundColor: Colors.red, title: Text("StudentZone")),
+        appBar: AppBar(
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (ctx) => base(),
+                    ),
+                  )),
+          title: Text(categoryName),
+        ),
         body: Container(
             child: StreamBuilder(
 
+                // child:_buildImageSlider(),
                 stream: FirebaseFirestore.instance
                     .collection('product')
-                    .where('userid',isEqualTo: userUid)
+                    .where('category', isEqualTo: categoryName)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return const Text('loading....');
@@ -45,8 +60,8 @@ class _myproductsState extends State<myproducts> {
     height = MediaQuery.of(context).size.height;
     var price = document['price'];
     var name = document['Name'];
-    
-       return GestureDetector(
+
+    return GestureDetector(
         onTap: () => {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
@@ -55,7 +70,12 @@ class _myproductsState extends State<myproducts> {
                 ),
               )
 
-             
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => new ProductDetail(doc),
+              //   ),
+              // )
             },
         child: Card(
           child: Container(
@@ -103,5 +123,3 @@ class _myproductsState extends State<myproducts> {
         ));
   }
 }
-
-
