@@ -206,7 +206,7 @@ class _productdetailState extends State<productdetail> {
                               children: [
                                 Container(
                                   height: 45,
-                                  width: 160,
+                                  width: 140,
                                   // width: double.infinity,
                                   child: RaisedButton(
                                     child: Text(
@@ -218,11 +218,11 @@ class _productdetailState extends State<productdetail> {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 50,
+                                  width: 40,
                                 ),
                                 Container(
                                   height: 45,
-                                  width: 160,
+                                  width: 140,
                                   // width: double.infinity,
                                   child: RaisedButton(
                                     child: Text(

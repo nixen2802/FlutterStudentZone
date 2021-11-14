@@ -62,7 +62,7 @@ class _myproductsState extends State<myproducts> {
             child: Column(
               children: <Widget>[
                 Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 10),
                     child: Container(
@@ -83,16 +83,21 @@ class _myproductsState extends State<myproducts> {
                         "\Rs ${price.toString()}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                            fontSize: 15,
                             color: Color(0xff9b96d6)),
                       ),
                       Container(
-                          child: Row(children: [
+                        
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                            
                         Text(
                           name,
                           style: TextStyle(fontSize: 15),
                         ),
                         FlatButton(
+                          
                           textColor: Colors.black,
                           onPressed: () {
                             print("detelepressedddddd");

@@ -58,32 +58,32 @@ class _baseState extends State<base> {
             icon: Icon(Icons.home, color: Colors.black),
             title: Text(
               "Home",
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.black,fontSize: 8),
             ),
           ),
 
           /// My Products
           SalomonBottomBarItem(
             icon: Icon(Icons.person, color: Colors.black),
-            title: Text("My Products", style: TextStyle(color: Colors.black)),
+            title: Text("My Products", style: TextStyle(color: Colors.black,fontSize: 8)),
           ),
 
           /// Notifications
           SalomonBottomBarItem(
             icon: Icon(Icons.notifications, color: Colors.black),
-            title: Text("Notifications", style: TextStyle(color: Colors.black)),
+            title: Text("Notifications", style: TextStyle(color: Colors.black,fontSize: 8)),
           ),
 
           /// Add Products
           SalomonBottomBarItem(
             icon: Icon(Icons.add, color: Colors.black),
-            title: Text("Add Product", style: TextStyle(color: Colors.black)),
+            title: Text("Add Product", style: TextStyle(color: Colors.black,fontSize: 8)),
           ),
 
           /// Profile
           SalomonBottomBarItem(
             icon: Icon(Icons.account_circle, color: Colors.black),
-            title: Text("Profile", style: TextStyle(color: Colors.black)),
+            title: Text("Profile", style: TextStyle(color: Colors.black,fontSize: 8)),
           ),
         ],
       ),
