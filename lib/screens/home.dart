@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:studentzone/screens/category.dart';
 import 'package:studentzone/screens/productdetail.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:studentzone/screens/profile.dart';
 import 'package:studentzone/widgets/categorybutton.dart';
 // import 'package:carousel_pro/carousel_pro.dart';
 
@@ -25,6 +26,7 @@ class _homeState extends State<home> {
         closetopcontainer = mycontroller.offset > 20;
       });
     });
+    getUserUid();
   }
 
   @override
@@ -129,7 +131,7 @@ class _homeState extends State<home> {
                           ),
                           //
                           categorybutton(
-                              caticons: Icons.connected_tv ,
+                              caticons: Icons.connected_tv,
                               coloricon: Colors.green,
                               categorytext: 'Furniture',
                               onPressed: () {
@@ -143,7 +145,7 @@ class _homeState extends State<home> {
                             width: 10,
                           ),
                           //
-                          
+
                           categorybutton(
                               caticons: Icons.devices_other_outlined,
                               coloricon: Colors.red,
@@ -214,13 +216,13 @@ class _homeState extends State<home> {
     height = MediaQuery.of(context).size.height;
     var price = document['price'];
     var name = document['Name'];
+    var useruid = document['userid'];
     // var img = Image.network(document['image']);
     return GestureDetector(
         onTap: () => {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (ctx) => productdetail(
-                      doc:doc),
+                  builder: (ctx) => productdetail(doc: doc, uiduser: useruid),
                 ),
               )
 

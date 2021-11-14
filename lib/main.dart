@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           register.routeName: (context) => register(),
           category.routeName: (context) => category(),
           productdetail.routeName: (context) => productdetail(
-                doc: detaildoc,
+                doc: detaildoc, uiduser: "12345",
               ),
           profile.routeName: (context) => profile(),
           base.routeName: (context) => base(),

@@ -61,13 +61,13 @@ class _categoryState extends State<category> {
     height = MediaQuery.of(context).size.height;
     var price = document['price'];
     var name = document['Name'];
-
+    var useruid = document['userid'];
     return GestureDetector(
         onTap: () => {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (ctx) => productdetail(
-                      doc:doc),
+                      doc:doc, uiduser:useruid),
                 ),
               )
 

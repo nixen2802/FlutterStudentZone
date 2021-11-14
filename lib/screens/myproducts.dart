@@ -15,10 +15,9 @@ class _myproductsState extends State<myproducts> {
         appBar: AppBar(backgroundColor: Colors.red, title: Text("StudentZone")),
         body: Container(
             child: StreamBuilder(
-
                 stream: FirebaseFirestore.instance
                     .collection('product')
-                    .where('userid',isEqualTo: userUid)
+                    .where('userid', isEqualTo: userUid)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return const Text('loading....');
@@ -46,17 +45,15 @@ class _myproductsState extends State<myproducts> {
     height = MediaQuery.of(context).size.height;
     var price = document['price'];
     var name = document['Name'];
-    
-       return GestureDetector(
+    var useruid = document['userid'];
+
+    return GestureDetector(
         onTap: () => {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (ctx) => productdetail(
-                      doc:doc),
+                  builder: (ctx) => productdetail(doc: doc, uiduser: useruid),
                 ),
               )
-
-             
             },
         child: Card(
           child: Container(
@@ -86,15 +83,29 @@ class _myproductsState extends State<myproducts> {
                         "\Rs ${price.toString()}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 17,
+                            fontSize: 12,
                             color: Color(0xff9b96d6)),
                       ),
                       Container(
-                        child: Text(
+                          child: Row(children: [
+                        Text(
                           name,
                           style: TextStyle(fontSize: 15),
                         ),
-                      )
+                        FlatButton(
+                          textColor: Colors.black,
+                          onPressed: () {
+                            print("detelepressedddddd");
+                            FirebaseFirestore.instance
+                                .collection('product')
+                                .doc(document.id)
+                                .delete();
+                          },
+                          child: Icon(Icons.delete),
+                          shape: CircleBorder(
+                              side: BorderSide(color: Colors.transparent)),
+                        )
+                      ]))
                     ],
                   ),
                 ),
@@ -104,5 +115,3 @@ class _myproductsState extends State<myproducts> {
         ));
   }
 }
-
-

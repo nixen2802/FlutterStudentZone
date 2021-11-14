@@ -1,13 +1,11 @@
 // import 'dart:html';
 
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studentzone/screens/base.dart';
+import 'package:studentzone/screens/profile.dart';
 import 'package:studentzone/widgets/mybutton.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:mailto/mailto.dart';
 
 String ownerName = "Admin";
 String ownerEmail = "AdminEmail";
@@ -16,37 +14,6 @@ String ownerPhone = "98989898989";
 String ownerId = "123";
 bool buttonpress = false;
 
-Future<void> mail() async {
-  final mailto = Mailto(
-    to: [
-      'example@example.com',
-      'ejemplo@ejemplo.com',
-    ],
-    cc: [
-      'percentage%100@example.com',
-      'QuestionMark?address@example.com',
-    ],
-    bcc: [
-      'Mike&family@example.org',
-    ],
-    subject: 'Let\'s drink a "café"! ☕️ 2+2=4 #coffeeAndMath',
-    body:
-        'Hello this if the first line!\n\nNew line with some special characters őúóüűáéèßáñ\nEmoji: 🤪💙👍',
-  );
-
-  final server = await HttpServer.bind(InternetAddress.loopbackIPv4, 3000);
-  String renderHtml(Mailto mailto) =>
-      '''<html><head><title>mailto example</title></head><body><a href="$mailto">Open mail client</a></body></html>''';
-  await for (HttpRequest request in server) {
-    request.response
-      ..statusCode = HttpStatus.ok
-      ..headers.contentType = ContentType.html
-      ..write(renderHtml(mailto));
-    await request.response.close();
-  }
-}
-
-//
 Future<void> getmyuser(String uiduser) async {
   var document1 =
       await FirebaseFirestore.instance.collection('User').doc(uiduser).get();
@@ -58,22 +25,15 @@ Future<void> getmyuser(String uiduser) async {
   ownerId = document1['UserId'];
 }
 
-Future<void> _makingPhoneCall() async {
-  const url = 'tel:9876543210';
-  try {
-    await launch(url);
-  } catch (e) {
-    print(e);
-  }
-}
-
 class productdetail extends StatefulWidget {
   static const routeName = '/productdetail';
 
-  const productdetail({Key? key, required this.doc}) : super(key: key);
+  const productdetail({Key? key, required this.doc, required this.uiduser})
+      : super(key: key);
 
   // Declare a field that holds the Todo.
   final doc;
+  final uiduser;
 
   @override
   _productdetailState createState() => _productdetailState();
@@ -81,25 +41,30 @@ class productdetail extends StatefulWidget {
 
 class _productdetailState extends State<productdetail> {
   @override
+  void initState() {
+    super.initState();
+    getmyuser(widget.uiduser);
+  
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var uiduser = widget.doc['userid'];
-    // buttonpress = false;
-    // print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"+uiduser);
-    getmyuser(uiduser);
+    // print(uiduser);
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
+              setState(() {
+                buttonpress = false;
+                
+              });
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (ctx) => base(),
                 ),
               );
-              setState(() {
-                buttonpress = false;
-              });
             }),
         title: Text("Details Page"),
       ),
@@ -184,30 +149,38 @@ class _productdetailState extends State<productdetail> {
                         radius: 50,
                         backgroundImage: NetworkImage(
                             'https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg')),
-                    Column(children: [
-                      Text(ownerName,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20)),
-                      // Padding(padding: EdgeInsets.fromLTRB(100, 20, 100, 0)),
-                      // Text(ownerEmail,
-                      //     style: TextStyle(
-                      //         fontWeight: FontWeight.bold, fontSize: 15)),
-                      // Padding(padding: EdgeInsets.fromLTRB(100, 20, 100, 0)),
-                    ])
+                    // Column(children: [
+                    //   Text(ownerName,
+                    //       style: TextStyle(
+                    //           fontWeight: FontWeight.bold, fontSize: 20)),
+
+                    // ])
+                    //  MyButton(
+                    //   name: "Get details",
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       buttonpress = true;
+                    //     });
+                    //   }),
+
+                    Container(
+                      height: 45,
+                      width: 160,
+                      // width: double.infinity,
+                      child: RaisedButton(
+                        child: Text(
+                          "Get details",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        color: Colors.red,
+                        onPressed: () {
+                          setState(() {
+                            buttonpress = true;
+                          });
+                        },
+                      ),
+                    ),
                   ]),
-                  Divider(
-                    height: 1,
-                    thickness: 1,
-                    indent: 20,
-                    endIndent: 20,
-                  ),
-                  MyButton(
-                      name: "Get details",
-                      onPressed: () {
-                        setState(() {
-                          buttonpress = true;
-                        });
-                      }),
                   Divider(
                     height: 1,
                     thickness: 1,
@@ -241,7 +214,7 @@ class _productdetailState extends State<productdetail> {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     color: Colors.red,
-                                    onPressed: _makingPhoneCall,
+                                    onPressed: () {},
                                   ),
                                 ),
                                 SizedBox(
@@ -258,7 +231,7 @@ class _productdetailState extends State<productdetail> {
                                     ),
                                     color: Colors.white,
                                     // textColor: Colors.black,
-                                    onPressed: mail,
+                                    onPressed: () {},
                                     shape: RoundedRectangleBorder(
                                         side: BorderSide(
                                             color: Colors.black, width: 2)),
