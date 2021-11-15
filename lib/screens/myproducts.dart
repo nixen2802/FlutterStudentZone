@@ -60,7 +60,6 @@ class _myproductsState extends State<myproducts> {
         )
       },
       child: Card(
-        elevation: 3,
         // padding: EdgeInsets.symmetric(horizontal: 6),
         // decoration: BoxDecoration(
         //   boxShadow: [
@@ -72,10 +71,6 @@ class _myproductsState extends State<myproducts> {
         //   ],
         // ),
         child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Color.fromRGBO(236, 236, 236, 0.7843137254901961),
-          ),
           height: height * 0.3,
           width: width * 0.2 * 2 + 10,
           child: Column(
@@ -112,10 +107,7 @@ class _myproductsState extends State<myproducts> {
                         children: [
                           Flexible(
                             child: Container(
-                              child: Text(
-                                (name),
-                                style: GoogleFonts.arimo()
-                              ),
+                              child: Text((name), style: GoogleFonts.arimo()),
                             ),
                           ),
                           TextButton(
@@ -127,7 +119,10 @@ class _myproductsState extends State<myproducts> {
                                   .doc(document.id)
                                   .delete();
                             },
-                            child: Icon(Icons.delete),
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
                             //   shape: CircleBorder(
                             //       side: BorderSide(color: Colors.transparent)),
                           )

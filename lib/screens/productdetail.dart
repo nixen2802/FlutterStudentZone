@@ -21,6 +21,7 @@ Future<void> _makePhoneCall(String url) async {
     throw 'Could not launch $url';
   }
 }
+
 Future<void> getmyuser(String uiduser) async {
   var document1 =
       await FirebaseFirestore.instance.collection('User').doc(uiduser).get();
@@ -51,7 +52,6 @@ class _productdetailState extends State<productdetail> {
   void initState() {
     super.initState();
     getmyuser(widget.uiduser);
-  
   }
 
   @override
@@ -65,7 +65,6 @@ class _productdetailState extends State<productdetail> {
             onPressed: () {
               setState(() {
                 buttonpress = false;
-                
               });
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
@@ -153,9 +152,10 @@ class _productdetailState extends State<productdetail> {
                   ),
                   Row(children: [
                     CircleAvatar(
-                        radius: 50,
-                        backgroundImage: NetworkImage(
-                            'https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg')),
+                      radius: 50,
+                      backgroundImage: NetworkImage(
+                          'https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg'),
+                    ),
                     // Column(children: [
                     //   Text(ownerName,
                     //       style: TextStyle(
@@ -174,12 +174,28 @@ class _productdetailState extends State<productdetail> {
                       height: 45,
                       width: 160,
                       // width: double.infinity,
-                      child: RaisedButton(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          textStyle: MaterialStateProperty.all(
+                            TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
                         child: Text(
                           "Get details",
                           style: TextStyle(color: Colors.white),
                         ),
-                        color: Colors.red,
+                        // color: Colors.red,
                         onPressed: () {
                           setState(() {
                             buttonpress = true;
@@ -215,12 +231,30 @@ class _productdetailState extends State<productdetail> {
                                   height: 45,
                                   width: 140,
                                   // width: double.infinity,
-                                  child: RaisedButton(
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(Colors.red),
+                                      foregroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.white),
+                                      textStyle: MaterialStateProperty.all(
+                                        TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
                                     child: Text(
                                       "call",
                                       style: TextStyle(color: Colors.white),
                                     ),
-                                    color: Colors.red,
+                                    // color: Colors.red,
                                     onPressed: () {
                                       setState(() {
                                         _makePhoneCall('tel:$ownerPhone');
@@ -235,21 +269,44 @@ class _productdetailState extends State<productdetail> {
                                   height: 45,
                                   width: 140,
                                   // width: double.infinity,
-                                  child: RaisedButton(
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.white),
+                                      foregroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.black),
+                                      side: MaterialStateProperty.all(
+                                          BorderSide(
+                                              color: Colors.black, width: 1)),
+                                      textStyle: MaterialStateProperty.all(
+                                        TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                    ),
                                     child: Text(
                                       "Mail",
                                       style: TextStyle(color: Colors.black),
                                     ),
-                                    color: Colors.white,
+                                    // color: Colors.white,
                                     // textColor: Colors.black,
                                     onPressed: () {
                                       setState(() {
-                                        _makePhoneCall('mailto:$ownerEmail?subject=Product%20Info');
+                                        _makePhoneCall(
+                                            'mailto:$ownerEmail?subject=Product%20Info');
                                       });
                                     },
-                                    shape: RoundedRectangleBorder(
-                                        side: BorderSide(
-                                            color: Colors.black, width: 2)),
+                                    // shape: RoundedRectangleBorder(
+                                    //     side: BorderSide(
+                                    //         color: Colors.black, width: 2)),
                                   ),
                                 ),
                               ],

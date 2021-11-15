@@ -59,7 +59,7 @@ class _splashscreenState extends State<splashscreen> {
                         foregroundColor: MaterialStateProperty.all(Colors.black),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                       ),
@@ -86,7 +86,7 @@ class _splashscreenState extends State<splashscreen> {
                         foregroundColor: MaterialStateProperty.all(Colors.white),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                       ),
