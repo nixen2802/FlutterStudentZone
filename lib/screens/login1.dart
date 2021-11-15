@@ -1,3 +1,4 @@
+// import 'dart:html';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,7 +40,7 @@ class _login1State extends State<login1> {
               email: email.text, password: password.text);
       print(result);
       Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (ctx) => base()));
+          .pushReplacement(MaterialPageRoute(builder: (ctx) => base()));
     } on PlatformException catch (error) {
       var message = "Please Check Your Internet Connection ";
       if (error.message != null) {
@@ -66,7 +67,6 @@ class _login1State extends State<login1> {
       ));
     }
 
-    
     setState(() {
       isLoading = false;
     });
@@ -125,16 +125,23 @@ class _login1State extends State<login1> {
                 SizedBox(
                   height: 10,
                 ),
-                MyTextFormField(
-                  name: "Email",
+                TextField(
+                  obscureText: obserText,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email',
+                  ),
                   controller: email,
                 ),
                 SizedBox(
                   height: 10,
                 ),
-                PasswordTextFormField(
-                  obserText: obserText,
-                  name: "Password",
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                  ),
                   controller: password,
                   onTap: () {
                     FocusScope.of(context).unfocus();

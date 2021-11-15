@@ -7,15 +7,31 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 45,
-      width: double.infinity,
-      child: RaisedButton(
-        child: Text(
-          name,
-          style: TextStyle(color: Colors.white),
+      height: 52,
+      width: 180,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints.tightFor(width: 120, height: 52),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.red),
+            foregroundColor: MaterialStateProperty.all(Colors.white),
+            textStyle: MaterialStateProperty.all(
+                TextStyle(
+                  fontSize: 18,
+                ),
+            ),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+          ),
+          child: Text(
+            name,
+            style: TextStyle(color: Colors.white),
+          ),
+          onPressed: () => onPressed(),
         ),
-        color: Colors.red,
-        onPressed: () => onPressed(),
       ),
     );
   }

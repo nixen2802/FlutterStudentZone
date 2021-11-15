@@ -44,34 +44,58 @@ class _splashscreenState extends State<splashscreen> {
                   //     textStyle: MaterialStateProperty.all(TextStyle(fontSize: 25)),
                   //   ),
                   // ),
-                  new RaisedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => login1()),
-                        (_) => false,
-                      );
-                    },
-                    child: Text('LOG IN'),
-                    color: Colors.white,
-                    textColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.black, width: 2)),
-                    padding: EdgeInsets.fromLTRB(50, 25, 50, 25),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints.tightFor(width: 120, height: 60),
+                    child: new ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => login1()),
+                          (_) => false,
+                        );
+                      },
+                      child: Text('LOG IN'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.white),
+                        foregroundColor: MaterialStateProperty.all(Colors.black),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                      ),
+                      // color: Colors.white,
+                      // textColor: Colors.black,
+                      // shape: RoundedRectangleBorder(
+                      //     side: BorderSide(color: Colors.black, width: 2)),
+                      // padding: EdgeInsets.fromLTRB(50, 25, 50, 25),
+                    ),
                   ),
                   Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
-                  new RaisedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => register1()),
-                        (_) => false,
-                      );
-                    },
-                    child: Text('REGISTER'),
-                    color: Colors.red,
-                    textColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.red, width: 2)),
-                    padding: EdgeInsets.fromLTRB(50, 25, 50, 25),
+                  ConstrainedBox(
+                    constraints: const BoxConstraints.tightFor(width: 120, height: 60),
+                    child: new ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => register1()),
+                          (_) => false,
+                        );
+                      },
+                      child: Text('REGISTER'),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                        foregroundColor: MaterialStateProperty.all(Colors.white),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                      ),
+                      // color: Colors.red,
+                      // textColor: Colors.white,
+                      // shape: RoundedRectangleBorder(
+                      //     side: BorderSide(color: Colors.red, width: 2)),
+                      // padding: EdgeInsets.fromLTRB(50, 25, 50, 25),
+                    ),
                   ),
                   // new ElevatedButton(onPressed: null, child: Text('REGISTER'), style: ButtonStyle(
                   // backgroundColor: MaterialStateProperty.all(Colors.red),
