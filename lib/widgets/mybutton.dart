@@ -8,7 +8,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 52,
-      width: 180,
+      width: 300,
       child: ConstrainedBox(
         constraints: const BoxConstraints.tightFor(width: 120, height: 52),
         child: ElevatedButton(
@@ -22,7 +22,7 @@ class MyButton extends StatelessWidget {
             ),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
           ),

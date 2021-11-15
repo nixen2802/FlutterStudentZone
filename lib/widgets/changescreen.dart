@@ -8,8 +8,11 @@ class ChangeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(whichAccount),
+        Text(whichAccount, style: TextStyle(
+          fontSize: 16
+        ),),
         SizedBox(
           width: 10,
         ),
@@ -18,8 +21,8 @@ class ChangeScreen extends StatelessWidget {
           child: Text(
             name,
             style: TextStyle(
-              color: Colors.cyan,
-              fontSize: 20,
+              color: Colors.blue,
+              fontSize: 18,
             ),
           ),
         ),

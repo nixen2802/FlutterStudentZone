@@ -123,35 +123,41 @@ class _login1State extends State<login1> {
                   style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 70,
                 ),
-                TextField(
-                  obscureText: obserText,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
+                Container(
+                  width: 300,
+                  child: TextField(
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Email',
+                    ),
+                    controller: email,
                   ),
-                  controller: email,
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 30,
                 ),
-                TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
+                Container(
+                  width: 300,
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
+                    ),
+                    controller: password,
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      setState(() {
+                        obserText = !obserText;
+                      });
+                    },
                   ),
-                  controller: password,
-                  onTap: () {
-                    FocusScope.of(context).unfocus();
-                    setState(() {
-                      obserText = !obserText;
-                    });
-                  },
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 70,
                 ),
                 isLoading == false
                     ? MyButton(
@@ -168,7 +174,7 @@ class _login1State extends State<login1> {
                         child: CircularProgressIndicator(),
                       ),
                 SizedBox(
-                  height: 10,
+                  height: 25,
                 ),
                 ChangeScreen(
                     name: "SignUp",

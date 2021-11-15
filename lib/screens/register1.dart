@@ -34,7 +34,6 @@ bool isMale = true;
 bool isLoading = false;
 
 class _register1State extends State<register1> {
-
   void submit() async {
     UserCredential result;
     try {
@@ -46,14 +45,13 @@ class _register1State extends State<register1> {
       print(result);
 
       FirebaseFirestore.instance.collection("User").doc(result.user!.uid).set({
-      "UserName": userName.text,
-      "UserId": result.user!.uid,
-      "UserEmail": email.text,
-      "UserAddress": address.text,
-      "UserGender": isMale == true ? "Male" : "Female",
-      "UserNumber": phoneNumber.text,
-    });
-
+        "UserName": userName.text,
+        "UserId": result.user!.uid,
+        "UserEmail": email.text,
+        "UserAddress": address.text,
+        "UserGender": isMale == true ? "Male" : "Female",
+        "UserNumber": phoneNumber.text,
+      });
     } on PlatformException catch (error) {
       var message = "Please Check Your Internet Connection ";
       if (error.message != null) {
@@ -76,20 +74,17 @@ class _register1State extends State<register1> {
         duration: Duration(milliseconds: 600),
         backgroundColor: Theme.of(context).primaryColor,
       ));
-    
+
       print(error);
     }
 
-    
-   
-    
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (ctx) => base()));
     setState(() {
       isLoading = false;
     });
   }
-  
+
   void vaildation() async {
     if (userName.text.isEmpty &&
         email.text.isEmpty &&
@@ -150,27 +145,39 @@ class _register1State extends State<register1> {
 
   Widget _buildAllTextFormField() {
     return Container(
+      width: 300,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          MyTextFormField(
-            name: "UserName",
+          TextField(
+            obscureText: obserText,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Username',
+            ),
             controller: userName,
           ),
           SizedBox(
             height: 10,
           ),
-          MyTextFormField(
-            name: "Email",
+          TextField(
+            obscureText: obserText,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Email',
+            ),
             controller: email,
           ),
           SizedBox(
             height: 10,
           ),
-          PasswordTextFormField(
-            obserText: obserText,
+          TextField(
+            obscureText: obserText,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Password',
+            ),
             controller: password,
-            name: "Password",
             onTap: () {
               FocusScope.of(context).unfocus();
               setState(() {
@@ -191,7 +198,10 @@ class _register1State extends State<register1> {
               height: 60,
               padding: EdgeInsets.only(left: 10),
               width: double.infinity,
-              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(4),
+              ),
               child: Center(
                 child: Row(
                   children: [
@@ -207,15 +217,23 @@ class _register1State extends State<register1> {
           SizedBox(
             height: 10,
           ),
-          MyTextFormField(
-            name: "Phone Number",
+          TextField(
+            obscureText: obserText,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Phone Number',
+            ),
             controller: phoneNumber,
           ),
           SizedBox(
             height: 10,
           ),
-          MyTextFormField(
-            name: "Address",
+          TextField(
+            obscureText: obserText,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Address',
+            ),
             controller: address,
           ),
         ],
@@ -236,7 +254,7 @@ class _register1State extends State<register1> {
           ),
           isLoading == false
               ? MyButton(
-                  name: "register1",
+                  name: "Register",
                   onPressed: () {
                     vaildation();
                   },
@@ -244,6 +262,9 @@ class _register1State extends State<register1> {
               : Center(
                   child: CircularProgressIndicator(),
                 ),
+          SizedBox(
+            height: 20,
+          ),
           ChangeScreen(
             name: "Login",
             whichAccount: "I Have Already An Account!",
@@ -267,8 +288,7 @@ class _register1State extends State<register1> {
       body: ListView(
         children: [
           Container(
-            height: 200,
-         
+            height: 150,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -283,7 +303,7 @@ class _register1State extends State<register1> {
             ),
           ),
           Container(
-            height: 500,
+            height: 570,
             child: _buildBottomPart(),
           ),
         ],

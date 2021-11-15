@@ -87,30 +87,34 @@ class _myproductsState extends State<myproducts> {
                             color: Color(0xff9b96d6)),
                       ),
                       Container(
-                        
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                            
-                        Text(
-                          name,
-                          style: TextStyle(fontSize: 15),
+                        margin: EdgeInsets.only(left: 18),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Container(
+                                child: Text(
+                                  (name),
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              // textColor: Colors.black,
+                              onPressed: () {
+                                print("detelepressedddddd");
+                                FirebaseFirestore.instance
+                                    .collection('product')
+                                    .doc(document.id)
+                                    .delete();
+                              },
+                              child: Icon(Icons.delete),
+                            //   shape: CircleBorder(
+                            //       side: BorderSide(color: Colors.transparent)),
+                            )
+                          ],
                         ),
-                        FlatButton(
-                          
-                          textColor: Colors.black,
-                          onPressed: () {
-                            print("detelepressedddddd");
-                            FirebaseFirestore.instance
-                                .collection('product')
-                                .doc(document.id)
-                                .delete();
-                          },
-                          child: Icon(Icons.delete),
-                          shape: CircleBorder(
-                              side: BorderSide(color: Colors.transparent)),
-                        )
-                      ]))
+                      ),
                     ],
                   ),
                 ),
