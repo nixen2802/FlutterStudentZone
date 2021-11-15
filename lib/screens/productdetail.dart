@@ -10,10 +10,17 @@ import 'package:url_launcher/url_launcher.dart';
 String ownerName = "Admin";
 String ownerEmail = "AdminEmail";
 String ownerAddress = "Admin adress";
-String ownerPhone = "98989898989";
+String ownerPhone = "9898989898";
 String ownerId = "123";
 bool buttonpress = false;
 
+Future<void> _makePhoneCall(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 Future<void> getmyuser(String uiduser) async {
   var document1 =
       await FirebaseFirestore.instance.collection('User').doc(uiduser).get();
@@ -214,7 +221,11 @@ class _productdetailState extends State<productdetail> {
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     color: Colors.red,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        _makePhoneCall('tel:$ownerPhone');
+                                      });
+                                    },
                                   ),
                                 ),
                                 SizedBox(
@@ -231,7 +242,11 @@ class _productdetailState extends State<productdetail> {
                                     ),
                                     color: Colors.white,
                                     // textColor: Colors.black,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        _makePhoneCall('mailto:$ownerEmail?subject=Product%20Info');
+                                      });
+                                    },
                                     shape: RoundedRectangleBorder(
                                         side: BorderSide(
                                             color: Colors.black, width: 2)),
