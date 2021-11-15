@@ -17,6 +17,7 @@ import 'screens/base.dart';
 import 'screens/productdetail.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 DocumentSnapshot detaildoc =(FirebaseFirestore.instance.collection('product').snapshots() as QuerySnapshot).docs[0];
 
