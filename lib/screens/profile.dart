@@ -16,6 +16,8 @@ var email;
 var phonenubmer;
 var gender;
 var address;
+String profileimgurl =
+    "https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg";
 
 // final FirebaseAuth auth = FirebaseAuth.instance;
 Future<void> getUserUid() async {
@@ -76,6 +78,20 @@ class _profileState extends State<profile> {
                   // userImage: myDoc.data()["UserImage"];
                   address = myDoc["UserAddress"];
                   gender = myDoc["UserGender"];
+                  if (gender == 'Female') {
+                    
+                      profileimgurl =
+                          "https://t4.ftcdn.net/jpg/02/78/70/99/360_F_278709964_PhS3MsOE9udVYb5VCin1xCQJlm3HFb9V.jpg";
+                    
+                  }
+                  if (gender == 'Male') {
+                    
+                      profileimgurl =
+                          "https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg";
+                    
+                  }
+
+                  
                   name = myDoc["UserName"];
                   phonenubmer = myDoc["UserNumber"];
                 }
@@ -90,7 +106,7 @@ class _profileState extends State<profile> {
                       CircleAvatar(
                           radius: 150,
                           backgroundImage: NetworkImage(
-                              'https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg')),
+                              profileimgurl)),
                       Text(name,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 30)),

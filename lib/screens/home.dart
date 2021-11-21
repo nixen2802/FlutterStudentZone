@@ -19,7 +19,6 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     mycontroller.addListener(() {
       setState(() {
@@ -53,7 +52,7 @@ class _homeState extends State<home> {
                 autoPlay: true,
                 enlargeCenterPage: true,
               ),
-              items: [1, 2, 3, 4, 5].map((i) {
+              items: [1, 2, 3, 4].map((i) {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
@@ -62,7 +61,7 @@ class _homeState extends State<home> {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.fill,
-                          image: AssetImage("assets/images/logo.png"),
+                          image: AssetImage("assets/images/img$i.jpg"),
                         ),
                       ),
                     );

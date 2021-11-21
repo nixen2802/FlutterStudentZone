@@ -12,6 +12,7 @@ String ownerEmail = "AdminEmail";
 String ownerAddress = "Admin adress";
 String ownerPhone = "9898989898";
 String ownerId = "123";
+String productname="sample";
 bool buttonpress = false;
 
 Future<void> _makePhoneCall(String url) async {
@@ -52,6 +53,7 @@ class _productdetailState extends State<productdetail> {
   void initState() {
     super.initState();
     getmyuser(widget.uiduser);
+    productname=widget.doc['Name'];
   }
 
   @override
@@ -74,9 +76,9 @@ class _productdetailState extends State<productdetail> {
             }),
         title: Text("Details Page"),
       ),
-      body: Container(
+      body: ListView(
         padding: EdgeInsets.symmetric(vertical: 10),
-        child: Column(
+        children:[ Column(
           children: <Widget>[
             Center(
               child: Container(
@@ -108,7 +110,7 @@ class _productdetailState extends State<productdetail> {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Rs." + widget.doc['price'],
-                      style: TextStyle(fontSize: 22),
+                      style: TextStyle(fontSize: 20),
                     ),
                     // Text( widget.doc['Name'],
                     // style: TextStyle(fontSize: 28),
@@ -150,25 +152,26 @@ class _productdetailState extends State<productdetail> {
                     indent: 20,
                     endIndent: 20,
                   ),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Posted on: "+
+                      widget.doc['upload_date'].toDate().toString(),
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ),
+                  Divider(
+                    height: 1,
+                    thickness: 1,
+                    indent: 20,
+                    endIndent: 20,
+                  ),
                   Row(children: [
                     CircleAvatar(
                       radius: 50,
                       backgroundImage: NetworkImage(
                           'https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg'),
                     ),
-                    // Column(children: [
-                    //   Text(ownerName,
-                    //       style: TextStyle(
-                    //           fontWeight: FontWeight.bold, fontSize: 20)),
-
-                    // ])
-                    //  MyButton(
-                    //   name: "Get details",
-                    //   onPressed: () {
-                    //     setState(() {
-                    //       buttonpress = true;
-                    //     });
-                    //   }),
+                    
 
                     Container(
                       height: 45,
@@ -301,12 +304,10 @@ class _productdetailState extends State<productdetail> {
                                     onPressed: () {
                                       setState(() {
                                         _makePhoneCall(
-                                            'mailto:$ownerEmail?subject=Product%20Info');
+                                            'mailto:$ownerEmail?subject=Product%20Info%20-$productname &body=Hello%20I%20like%20to%20know%20about%20your%20product%20$productname%20which%20is%20listed%20on%20studentzone');
                                       });
                                     },
-                                    // shape: RoundedRectangleBorder(
-                                    //     side: BorderSide(
-                                    //         color: Colors.black, width: 2)),
+                                    
                                   ),
                                 ),
                               ],
@@ -321,6 +322,7 @@ class _productdetailState extends State<productdetail> {
             )
           ],
         ),
+        ],
       ),
     );
   }

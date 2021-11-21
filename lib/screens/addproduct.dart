@@ -231,6 +231,7 @@ class _addproductState extends State<addproduct> {
         "image": url,
         "userid": userUid,
         "category": dropdownValue,
+        "upload_date":DateTime.now(),
         // "image": AssetImage("images/logo.png")
       });
 

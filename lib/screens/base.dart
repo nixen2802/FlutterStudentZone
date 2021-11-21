@@ -4,8 +4,6 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:studentzone/screens/addproduct.dart';
 import 'package:studentzone/screens/home.dart';
 import 'package:studentzone/screens/myproducts.dart';
-import 'package:studentzone/screens/notifications.dart';
-
 import 'profile.dart';
 import 'screen3.dart';
 
@@ -26,7 +24,6 @@ class _baseState extends State<base> {
     _children = [
       home(),
       myproducts(),
-      notifications(),
       addproduct(),
       profile(),
     ];
@@ -68,11 +65,7 @@ class _baseState extends State<base> {
             title: Text("My Products", style: TextStyle(color: Colors.black,fontSize: 12)),
           ),
 
-          /// Notifications
-          SalomonBottomBarItem(
-            icon: Icon(Icons.notifications, color: Colors.black),
-            title: Text("Notifications", style: TextStyle(color: Colors.black,fontSize: 12)),
-          ),
+         
 
           /// Add Products
           SalomonBottomBarItem(
@@ -88,22 +81,7 @@ class _baseState extends State<base> {
         ],
       ),
 
-      // tabBuilder: (BuildContext context, int index) {
-      //   return CupertinoTabView(
-      //     builder: (BuildContext context) {
-      //       return SafeArea(
-      //         top: false,
-      //         bottom: false,
-      //         child: CupertinoApp(
-      //           home: Scaffold(
-      //             resizeToAvoidBottomInset: false,
-      //             child: _children[_currentIndex],
-      //           ),
-      //         ),
-      //       );
-      //     },
-      //   );
-      // }
+      //
     );
   }
 
