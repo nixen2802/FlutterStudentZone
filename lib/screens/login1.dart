@@ -139,14 +139,28 @@ class _login1State extends State<login1> {
                 SizedBox(
                   height: 30,
                 ),
+                // Container(
+                //   width: 300,
+                //   child: TextField(
+                //     obscureText: true,
+                //     decoration: InputDecoration(
+                //       border: OutlineInputBorder(),
+                //       labelText: 'Password',
+                //     ),
+                //     controller: password,
+                //     onTap: () {
+                //       FocusScope.of(context).unfocus();
+                //       setState(() {
+                //         obserText = !obserText;
+                //       });
+                //     },
+                //   ),
+                // ),
                 Container(
                   width: 300,
-                  child: TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                    ),
+                  child: PasswordTextFormField(
+                    obserText: obserText,
+                    name: "Password",
                     controller: password,
                     onTap: () {
                       FocusScope.of(context).unfocus();

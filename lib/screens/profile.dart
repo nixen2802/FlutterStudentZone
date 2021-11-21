@@ -78,19 +78,6 @@ class _profileState extends State<profile> {
                   phonenubmer = myDoc["UserNumber"];
                 }
               });
-              // return GridView.builder(
-              //   // itemExtent: 80.0,
-              //   itemCount: (snapshot.data! as QuerySnapshot).docs.length,
-              //   itemBuilder: (context,index) => _buildprofileitem(
-              //       context
-
-              //   ),
-              //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              //           // childAspectRatio: 8.0 / 10.0,
-              //           crossAxisCount: 1,
-              //         ),
-
-              // );
 
               return Container(
                   decoration: new BoxDecoration(color: Colors.white),
@@ -99,7 +86,7 @@ class _profileState extends State<profile> {
                     children: [
                       Padding(padding: EdgeInsets.fromLTRB(100, 50, 100, 0)),
                       CircleAvatar(
-                          radius: 70,
+                          radius: 150,
                           backgroundImage: NetworkImage(
                               'https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg')),
                       Text(name,
@@ -110,6 +97,32 @@ class _profileState extends State<profile> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 15)),
                       Padding(padding: EdgeInsets.fromLTRB(100, 20, 100, 0)),
+//                       var phonenubmer;
+                      Row(
+                        children: [
+                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 100, 20)),
+                          Icon(Icons.home_rounded),
+                          Flexible(
+                          
+                            child: Text(address,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15)),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        
+                        children: [
+                          Padding(padding: EdgeInsets.fromLTRB(0, 20, 100, 20)),
+                          Icon(Icons.call_rounded),
+                          Flexible(
+                            child: Text(phonenubmer,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15)),
+                          ),
+                        ],
+                      ),
+
                       new RaisedButton(
                         onPressed: () {
                           print("Null");
@@ -139,17 +152,6 @@ class _profileState extends State<profile> {
                         padding: EdgeInsets.fromLTRB(125, 20, 120, 20),
                       ),
                       Padding(padding: EdgeInsets.fromLTRB(100, 20, 100, 0)),
-                      Container(
-                        height: 150.0,
-                        width: 400.0,
-                        color: Colors.transparent,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(5.0))),
-                        ),
-                      ),
                     ],
                   ));
             }));

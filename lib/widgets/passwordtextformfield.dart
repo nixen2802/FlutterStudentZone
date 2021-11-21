@@ -19,9 +19,9 @@ class PasswordTextFormField extends StatelessWidget {
       obscureText: obserText,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        hintText: name,
+        labelText: name,
         suffixIcon: GestureDetector(
-          onTap:() => onTap(),
+          onTap: () => onTap(),
           child: Icon(
             obserText == true ? Icons.visibility : Icons.visibility_off,
             color: Colors.black,

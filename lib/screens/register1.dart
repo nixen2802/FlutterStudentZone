@@ -171,12 +171,9 @@ class _register1State extends State<register1> {
           SizedBox(
             height: 10,
           ),
-          TextField(
-            obscureText: obserText,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Password',
-            ),
+          PasswordTextFormField(
+            obserText: obserText,
+            name: "Password",
             controller: password,
             onTap: () {
               FocusScope.of(context).unfocus();
