@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+import 'package:studentzone/screens/editprofile.dart';
 import 'package:studentzone/widgets/changescreen.dart';
 
 import 'login1.dart';
@@ -15,6 +16,7 @@ var email;
 var phonenubmer;
 var gender;
 var address;
+
 // final FirebaseAuth auth = FirebaseAuth.instance;
 Future<void> getUserUid() async {
   User user = await FirebaseAuth.instance.currentUser!;
@@ -103,7 +105,6 @@ class _profileState extends State<profile> {
                           Padding(padding: EdgeInsets.fromLTRB(0, 20, 100, 20)),
                           Icon(Icons.home_rounded),
                           Flexible(
-                          
                             child: Text(address,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15)),
@@ -111,7 +112,6 @@ class _profileState extends State<profile> {
                         ],
                       ),
                       Row(
-                        
                         children: [
                           Padding(padding: EdgeInsets.fromLTRB(0, 20, 100, 20)),
                           Icon(Icons.call_rounded),
@@ -125,7 +125,11 @@ class _profileState extends State<profile> {
 
                       new RaisedButton(
                         onPressed: () {
-                          print("Null");
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (ctx) => editprofile(),
+                            ),
+                          );
                         },
                         child: Text('EDIT PROFILE'),
                         color: Colors.red,

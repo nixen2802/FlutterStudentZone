@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:studentzone/screens/home.dart';
-import 'package:studentzone/screens/login1.dart';
+import 'package:studentzone/screens/profile.dart';
 import 'package:studentzone/widgets/changescreen.dart';
 import '../widgets/mybutton.dart';
-import 'package:studentzone/widgets/mytextformfield.dart';
 import 'package:studentzone/widgets/passwordtextformfield.dart';
 
 import 'base.dart';
 
-class register1 extends StatefulWidget {
-  static const routeName = '/register1';
+class editprofile extends StatefulWidget {
+  static const routeName = '/editprofile';
   @override
-  _register1State createState() => _register1State();
+  _editprofileState createState() => _editprofileState();
 }
 
 final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -24,33 +22,31 @@ String p =
 
 RegExp regExp = new RegExp(p);
 bool obserText = true;
-final TextEditingController email = TextEditingController();
-final TextEditingController userName = TextEditingController();
-final TextEditingController phoneNumber = TextEditingController();
-final TextEditingController password = TextEditingController();
-final TextEditingController address = TextEditingController();
+TextEditingController email1 = TextEditingController();
+TextEditingController userName1 = TextEditingController();
+TextEditingController phoneNumber1 = TextEditingController();
+TextEditingController password1 = TextEditingController();
+TextEditingController address1 = TextEditingController();
 
 bool isMale = true;
 bool isLoading = false;
 
-class _register1State extends State<register1> {
+class _editprofileState extends State<editprofile> {
   void submit() async {
-    UserCredential result;
     try {
       setState(() {
         isLoading = true;
       });
-      result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email.text, password: password.text);
-      print(result);
+      // result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      //     email: email.text, password: password.text);
+      // print(result);
 
-      FirebaseFirestore.instance.collection("User").doc(result.user!.uid).set({
-        "UserName": userName.text,
-        "UserId": result.user!.uid,
-        "UserEmail": email.text,
-        "UserAddress": address.text,
+      FirebaseFirestore.instance.collection("User").doc(userUid).update({
+        "UserName": userName1.text,
+        "UserEmail": email1.text,
+        "UserAddress": address1.text,
         "UserGender": isMale == true ? "Male" : "Female",
-        "UserNumber": phoneNumber.text,
+        "UserNumber": phoneNumber1.text,
       });
     } on PlatformException catch (error) {
       var message = "Please Check Your Internet Connection ";
@@ -86,56 +82,43 @@ class _register1State extends State<register1> {
   }
 
   void vaildation() async {
-    if (userName.text.isEmpty &&
-        email.text.isEmpty &&
-        password.text.isEmpty &&
-        phoneNumber.text.isEmpty &&
-        address.text.isEmpty) {
+    if (userName1.text.isEmpty &&
+        email1.text.isEmpty &&
+        phoneNumber1.text.isEmpty &&
+        address1.text.isEmpty) {
       _scaffoldKey.currentState!.showSnackBar(
         SnackBar(
           content: Text("All Flied Are Empty"),
         ),
       );
-    } else if (userName.text.length < 6) {
+    } else if (userName1.text.length < 6) {
       _scaffoldKey.currentState!.showSnackBar(
         SnackBar(
           content: Text("Name Must Be 6 "),
         ),
       );
-    } else if (email.text.isEmpty) {
+    } else if (email1.text.isEmpty) {
       _scaffoldKey.currentState!.showSnackBar(
         SnackBar(
           content: Text("Email Is Empty"),
         ),
       );
-    } else if (!regExp.hasMatch(email.text)) {
+    } else if (!regExp.hasMatch(email1.text)) {
       _scaffoldKey.currentState!.showSnackBar(
         SnackBar(
           content: Text("Please Try Vaild Email"),
         ),
       );
-    } else if (password.text.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
-          content: Text("Password Is Empty"),
-        ),
-      );
-    } else if (password.text.length < 8) {
-      _scaffoldKey.currentState!.showSnackBar(
-        SnackBar(
-          content: Text("Password  Is Too Short"),
-        ),
-      );
-    } else if (phoneNumber.text.length < 11 || phoneNumber.text.length > 11) {
+    }  else if (phoneNumber1.text.length < 11 || phoneNumber1.text.length > 11) {
       _scaffoldKey.currentState!.showSnackBar(
         SnackBar(
           content: Text("Phone Number Must Be 11 "),
         ),
       );
-    } else if (address.text.isEmpty) {
+    } else if (address1.text.isEmpty) {
       _scaffoldKey.currentState!.showSnackBar(
         SnackBar(
-          content: Text("Adress Is Empty "),
+          content: Text("Address Is Empty "),
         ),
       );
     } else {
@@ -150,38 +133,37 @@ class _register1State extends State<register1> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           TextField(
-           
+            // initialValue: "rushabh",
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'Username',
+              labelText: 'userName1',
             ),
-            controller: userName,
+            controller: userName1,
           ),
           SizedBox(
             height: 10,
           ),
           TextField(
-            
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'Email',
+              labelText: 'email',
             ),
-            controller: email,
+            controller: email1,
           ),
           SizedBox(
             height: 10,
           ),
-          PasswordTextFormField(
-            obserText: obserText,
-            name: "Password",
-            controller: password,
-            onTap: () {
-              FocusScope.of(context).unfocus();
-              setState(() {
-                obserText = !obserText;
-              });
-            },
-          ),
+          // PasswordTextFormField(
+          //   obserText: obserText,
+          //   name: "password1",
+          //   controller: password1,
+          //   onTap: () {
+          //     FocusScope.of(context).unfocus();
+          //     setState(() {
+          //       obserText = !obserText;
+          //     });
+          //   },
+          // ),
           SizedBox(
             height: 10,
           ),
@@ -215,23 +197,21 @@ class _register1State extends State<register1> {
             height: 10,
           ),
           TextField(
-            
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Phone Number',
             ),
-            controller: phoneNumber,
+            controller: phoneNumber1,
           ),
           SizedBox(
             height: 10,
           ),
           TextField(
-           
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Address',
             ),
-            controller: address,
+            controller: address1,
           ),
         ],
       ),
@@ -251,7 +231,7 @@ class _register1State extends State<register1> {
           ),
           isLoading == false
               ? MyButton(
-                  name: "Register",
+                  name: "Submit",
                   onPressed: () {
                     vaildation();
                   },
@@ -263,12 +243,12 @@ class _register1State extends State<register1> {
             height: 20,
           ),
           ChangeScreen(
-            name: "Login",
-            whichAccount: "I Have Already An Account!",
+            name: "Cancel",
+            whichAccount: " ",
             onTap: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (ctx) => login1(),
+                  builder: (ctx) => base(),
                 ),
               );
             },
@@ -279,8 +259,35 @@ class _register1State extends State<register1> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    userName1.text = name;
+    email1.text = email;
+    phoneNumber1.text = phonenubmer;
+    // password1.text = ;
+    if (gender == "Male") {
+      isMale = true;
+    } else {
+      isMale = false;
+    }
+    address1.text = address;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (ctx) => base(),
+                ),
+              );
+            }),
+        title: Text("Edit Profile"),
+      ),
       key: _scaffoldKey,
       body: ListView(
         children: [
@@ -290,7 +297,7 @@ class _register1State extends State<register1> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  "Register",
+                  "Edit profile",
                   style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,

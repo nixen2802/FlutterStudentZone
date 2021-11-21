@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studentzone/provider/productprovider.dart';
 import 'package:studentzone/screens/category.dart';
+import 'package:studentzone/screens/editprofile.dart';
 import 'package:studentzone/screens/home.dart';
 import 'package:studentzone/screens/login1.dart';
 import 'package:studentzone/screens/productdetail.dart';
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
                 doc: detaildoc, uiduser: "12345",
               ),
           profile.routeName: (context) => profile(),
+          editprofile.routeName: (context) => editprofile(),
           base.routeName: (context) => base(),
         },
       ),
