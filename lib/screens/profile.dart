@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import 'package:studentzone/screens/editprofile.dart';
 import 'package:studentzone/widgets/changescreen.dart';
+import '../widgets/mybutton.dart';
 
 import 'login1.dart';
 
@@ -79,19 +80,14 @@ class _profileState extends State<profile> {
                   address = myDoc["UserAddress"];
                   gender = myDoc["UserGender"];
                   if (gender == 'Female') {
-                    
-                      profileimgurl =
-                          "https://t4.ftcdn.net/jpg/02/78/70/99/360_F_278709964_PhS3MsOE9udVYb5VCin1xCQJlm3HFb9V.jpg";
-                    
+                    profileimgurl =
+                        "https://t4.ftcdn.net/jpg/02/78/70/99/360_F_278709964_PhS3MsOE9udVYb5VCin1xCQJlm3HFb9V.jpg";
                   }
                   if (gender == 'Male') {
-                    
-                      profileimgurl =
-                          "https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg";
-                    
+                    profileimgurl =
+                        "https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg";
                   }
 
-                  
                   name = myDoc["UserName"];
                   phonenubmer = myDoc["UserNumber"];
                 }
@@ -105,8 +101,7 @@ class _profileState extends State<profile> {
                       Padding(padding: EdgeInsets.fromLTRB(100, 50, 100, 0)),
                       CircleAvatar(
                           radius: 150,
-                          backgroundImage: NetworkImage(
-                              profileimgurl)),
+                          backgroundImage: NetworkImage(profileimgurl)),
                       Text(name,
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 30)),
@@ -119,7 +114,13 @@ class _profileState extends State<profile> {
                       Row(
                         children: [
                           Padding(padding: EdgeInsets.fromLTRB(0, 20, 100, 20)),
-                          Icon(Icons.home_rounded),
+                          Icon(
+                            Icons.home_rounded,
+                            size: 22,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Flexible(
                             child: Text(address,
                                 style: TextStyle(
@@ -130,48 +131,114 @@ class _profileState extends State<profile> {
                       Row(
                         children: [
                           Padding(padding: EdgeInsets.fromLTRB(0, 20, 100, 20)),
-                          Icon(Icons.call_rounded),
+                          Icon(
+                            Icons.call_rounded,
+                            size: 22,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
                           Flexible(
                             child: Text(phonenubmer,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15)),
+                                    fontWeight: FontWeight.bold, fontSize: 16)),
                           ),
                         ],
                       ),
+                      Container(
+                        margin: EdgeInsets.only(top: 50),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            // Padding(padding: EdgeInsets.only(left: 50)),
+                            ConstrainedBox(
+                              constraints: const BoxConstraints.tightFor(
+                                  width: 120, height: 60),
+                              child: new ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (ctx) => editprofile(),
+                                    ),
+                                  );
+                                },
+                                child: Text('EDIT PROFILE'),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.red),
+                                  foregroundColor:
+                                      MaterialStateProperty.all(Colors.white),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
 
-                      new RaisedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (ctx) => editprofile(),
+                            // MyButton(
+                            //   name: "EDIT PROFILE",
+                            //   onPressed: () {
+                            //     Navigator.of(context).pushReplacement(
+                            //       MaterialPageRoute(
+                            //         builder: (ctx) => editprofile(),
+                            //       ),
+                            //     );
+                            //   },
+                            //   // child: Text('EDIT PROFILE'),
+                            //   // color: Colors.red,
+                            //   // textColor: Colors.white,
+                            //   // shape: RoundedRectangleBorder(
+                            //   //     side: BorderSide(color: Colors.red, width: 2)),
+                            //   // padding: EdgeInsets.fromLTRB(100, 25, 100, 25),
+                            // ),
+                            ConstrainedBox(
+                              constraints: const BoxConstraints.tightFor(
+                                  width: 120, height: 60),
+                              child: new ElevatedButton(
+                                onPressed: () {
+                                  signOut();
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (ctx) => login1(),
+                                    ),
+                                  );
+                                },
+                                child: Text('LOGOUT'),
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all(Colors.white),
+                                  foregroundColor:
+                                      MaterialStateProperty.all(Colors.black),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                        child: Text('EDIT PROFILE'),
-                        color: Colors.red,
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.red, width: 2)),
-                        padding: EdgeInsets.fromLTRB(100, 25, 100, 25),
+                          ],
+                        ),
                       ),
-                      Padding(padding: EdgeInsets.fromLTRB(100, 20, 100, 0)),
-                      new RaisedButton(
-                        onPressed: () {
-                          signOut();
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (ctx) => login1(),
-                            ),
-                          );
-                        },
-                        child: Text('Log Out'),
-                        color: Colors.white,
-                        textColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.black, width: 2)),
-                        padding: EdgeInsets.fromLTRB(125, 20, 120, 20),
-                      ),
-                      Padding(padding: EdgeInsets.fromLTRB(100, 20, 100, 0)),
+                      // new RaisedButton(
+                      //   onPressed: () {
+                      //     signOut();
+                      //     Navigator.of(context).pushReplacement(
+                      //       MaterialPageRoute(
+                      //         builder: (ctx) => login1(),
+                      //       ),
+                      //     );
+                      //   },
+                      //   child: Text('Log Out'),
+                      //   color: Colors.white,
+                      //   textColor: Colors.black,
+                      //   shape: RoundedRectangleBorder(
+                      //       side: BorderSide(color: Colors.black, width: 2)),
+                      //   padding: EdgeInsets.fromLTRB(125, 20, 120, 20),
+                      // ),
+                      // Padding(padding: EdgeInsets.fromLTRB(100, 20, 100, 0)),
                     ],
                   ));
             }));
