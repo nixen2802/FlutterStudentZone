@@ -176,6 +176,7 @@ class _productdetailState extends State<productdetail> {
                         backgroundImage: NetworkImage(
                             'https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg'),
                       ),
+                      Padding(padding: EdgeInsets.fromLTRB(0, 0, 15,0 )),
                       Container(
                         height: 45,
                         width: 160,
@@ -249,6 +250,7 @@ class _productdetailState extends State<productdetail> {
                                 SizedBox(
                                   height: 2,
                                 ),
+                                Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
@@ -276,9 +278,14 @@ class _productdetailState extends State<productdetail> {
                                             ),
                                           ),
                                         ),
-                                        child: Text(
-                                          "call",
-                                          style: TextStyle(color: Colors.white),
+                                        child: Wrap( 
+                                          children: <Widget>[
+                                            Icon(Icons.call),
+                                            Text(
+                                              "Call",
+                                              style: TextStyle(color: Colors.white, fontSize: 15),
+                                            ),
+                                          ]
                                         ),
                                         // color: Colors.red,
                                         onPressed: () {
@@ -316,9 +323,14 @@ class _productdetailState extends State<productdetail> {
                                             ),
                                           ),
                                         ),
-                                        child: Text(
+                                        child: Wrap( 
+                                          children: <Widget>[
+                                            Icon(Icons.mail_outline_rounded),
+                                            Text(
                                           "Mail",
                                           style: TextStyle(color: Colors.black),
+                                        ),
+                                          ]
                                         ),
                                         // color: Colors.white,
                                         // textColor: Colors.black,
