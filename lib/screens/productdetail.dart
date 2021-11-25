@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:studentzone/screens/base.dart';
+import 'package:studentzone/screens/editprofile.dart';
 import 'package:studentzone/screens/profile.dart';
 import 'package:studentzone/widgets/mybutton.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -327,6 +328,40 @@ class _productdetailState extends State<productdetail> {
                                             _makePhoneCall(
                                                 'mailto:$ownerEmail?subject=Product%20Info%20-$productname &body=Hello%20I%20like%20to%20know%20about%20your%20product%20$productname%20which%20is%20listed%20on%20studentzone');
                                           });
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 45,
+                                      width: 140,
+                                      // width: double.infinity,
+                                      child: ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.red),
+                                          foregroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white),
+                                          textStyle: MaterialStateProperty.all(
+                                            TextStyle(
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Edit product",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        // color: Colors.red,
+                                        onPressed: () {
+                                          print("Edit product button pressed!!!");
                                         },
                                       ),
                                     ),
