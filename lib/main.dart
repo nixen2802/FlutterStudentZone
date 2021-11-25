@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:studentzone/provider/productprovider.dart';
 import 'package:studentzone/screens/category.dart';
 import 'package:studentzone/screens/editprofile.dart';
-import 'package:studentzone/screens/editproducts.dart';
 import 'package:studentzone/screens/home.dart';
 import 'package:studentzone/screens/login1.dart';
 import 'package:studentzone/screens/productdetail.dart';
@@ -71,7 +70,6 @@ class MyApp extends StatelessWidget {
               ),
           profile.routeName: (context) => profile(),
           editprofile.routeName: (context) => editprofile(),
-          editproducts.routeName: (context) => editproducts(),
           base.routeName: (context) => base(),
         },
       ),
