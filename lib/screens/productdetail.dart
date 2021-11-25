@@ -1,290 +1,350 @@
-import 'dart:io';
-import 'dart:ui';
+// import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:studentzone/screens/base.dart';
 import 'package:studentzone/screens/profile.dart';
 import 'package:studentzone/widgets/mybutton.dart';
-import 'package:studentzone/widgets/mytextformfield.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart' as path;
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-String url = "null";
-String imagecheck = " ";
-String dropdownValue = 'Others';
-String imglink =
-    "https://firebasestorage.googleapis.com/v0/b/studentzone-55d7c.appspot.com/o/uploadimg.jpg?alt=media&token=80d71180-2ba7-46c8-b729-007c66558dd4";
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-String p =
-    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+String ownerName = "Admin";
+String ownerEmail = "AdminEmail";
+String ownerAddress = "Admin adress";
+String ownerPhone = "9898989898";
+String ownerId = "123";
+String productname = "sample";
+bool buttonpress = false;
 
-RegExp regExp = new RegExp(p);
-bool obserText = true;
-final fieldText = TextEditingController();
-final TextEditingController ProductName = TextEditingController();
-final TextEditingController Price = TextEditingController();
-final TextEditingController Description = TextEditingController();
-bool isLoading = false;
-
-class addproduct extends StatefulWidget {
-  @override
-  _addproductState createState() => _addproductState();
+Future<void> _makePhoneCall(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
 
-class _addproductState extends State<addproduct> {
-  FirebaseStorage storage = FirebaseStorage.instance;
+Future<void> getmyuser(String uiduser) async {
+  var document1 =
+      await FirebaseFirestore.instance.collection('User').doc(uiduser).get();
 
-  // Select and image from the gallery or take a picture with the camera
-  // Then upload to Firebase Storage
-  Future<void> _upload(String inputSource) async {
-    final picker = ImagePicker();
-    PickedFile? pickedImage;
-    try {
-      pickedImage = await picker.getImage(
-          source: inputSource == 'camera'
-              ? ImageSource.camera
-              : ImageSource.gallery,
-          maxWidth: 1920);
+  ownerName = document1['UserName'];
+  ownerEmail = document1['UserEmail'];
+  ownerPhone = document1['UserNumber'];
+  ownerAddress = document1['UserAddress'];
+  ownerId = document1['UserId'];
+}
 
-      final String fileName = path.basename(pickedImage!.path);
-      print(fileName);
-      File imageFile = File(pickedImage.path);
+class productdetail extends StatefulWidget {
+  static const routeName = '/productdetail';
 
-      try {
-        // Uploading the selected image with some custom meta data
-        await storage.ref(fileName).putFile(
-              imageFile,
-            );
+  const productdetail({Key? key, required this.doc, required this.uiduser})
+      : super(key: key);
 
-        url = await storage.ref(fileName).getDownloadURL();
-        if (imglink !=
-            "https://firebasestorage.googleapis.com/v0/b/studentzone-55d7c.appspot.com/o/uploadimg.jpg?alt=media&token=80d71180-2ba7-46c8-b729-007c66558dd4") {
-          FirebaseStorage.instance.refFromURL(imglink).delete();
-        }
-        imglink = url;
+  // Declare a field that holds the Todo.
+  final doc;
+  final uiduser;
 
-        Fluttertoast.showToast(
-          msg: "Image uploaded successfully",
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-        );
-        // Refresh the UI
-        setState(() {
-          imagecheck = "Image uploaded successfully";
-        });
-      } on FirebaseException catch (error) {
-        print(error);
-      }
-    } catch (err) {
-      print(err);
-    }
+  @override
+  _productdetailState createState() => _productdetailState();
+}
+
+class _productdetailState extends State<productdetail> {
+  @override
+  void initState() {
+    super.initState();
+    getmyuser(widget.uiduser);
+    productname = widget.doc['Name'];
   }
 
   @override
   Widget build(BuildContext context) {
-    // if (imagecheck != " ") {
-    //   imglink = " ";
-    // }
-    return ListView(
-      // padding: EdgeInsets.all(10),
-      // decoration: new BoxDecoration(color: Colors.white),
-      // width: MediaQuery.of(context).size.width,
-      // child: Column(crossAxisAlignment: CrossAxisAlignment.start, 
-      children: [
-        Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
-        new Container(
-          // width: 160,
-          height: 250,
+    // print(uiduser);
 
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              // fit: BoxFit.fill,
-
-              image: NetworkImage(imglink),
-            ),
-          ),
-        ),
-        new Container(
-          padding: EdgeInsets.fromLTRB(75, 0, 50, 25),
-          child: Row(
-            children: [
-              ElevatedButton.icon(
-                  onPressed: () => _upload('camera'),
-                  icon: Icon(Icons.camera),
-                  label: Text('camera')),
-              SizedBox(
-                width: 15,
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () {
+              setState(() {
+                buttonpress = false;
+              });
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (ctx) => base(),
+                ),
+              );
+            }),
+        title: Text("Details Page"),
+      ),
+      body: ListView(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        children: [
+          Column(
+            children: <Widget>[
+              Center(
+                child: Container(
+                  margin: EdgeInsets.all(12.0),
+                  width: MediaQuery.of(context).size.width - 50,
+                  height: 250,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(widget.doc['image']),
+                      ),
+                      borderRadius: BorderRadius.circular(10)),
+                ),
               ),
-              ElevatedButton.icon(
-                  onPressed: () => _upload('gallery'),
-                  icon: Icon(Icons.library_add),
-                  label: Text('Gallery')),
+              Container(
+                padding: EdgeInsets.only(top: 8),
+                child: Divider(
+                  height: 1,
+                  thickness: 1,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 20, right: 20, left: 20),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Rs." + widget.doc['price'],
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      // Text( widget.doc['Name'],
+                      // style: TextStyle(fontSize: 28),
+                      // ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.doc['Name'],
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Divider(
+                        height: 1,
+                        thickness: 1,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Description:",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.doc['description'],
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 8, bottom: 8),
+                      child: Divider(
+                        height: 1,
+                        thickness: 1,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Posted on: " +
+                            widget.doc['upload_date'].toDate().toString(),
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Divider(
+                        height: 1,
+                        thickness: 1,
+                      ),
+                    ),
+                    Row(children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage(
+                            'https://previews.123rf.com/images/jemastock/jemastock1706/jemastock170608711/80128439-young-and-successful-business-man-cartoon-employee-work.jpg'),
+                      ),
+                      Container(
+                        height: 45,
+                        width: 160,
+                        // width: double.infinity,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red),
+                            foregroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            textStyle: MaterialStateProperty.all(
+                              TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            "Get details",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          // color: Colors.red,
+                          onPressed: () {
+                            setState(() {
+                              buttonpress = true;
+                            });
+                          },
+                        ),
+                      ),
+                    ]),
+                    Container(
+                      padding: EdgeInsets.only(top: 8),
+                      child: Divider(
+                        height: 1,
+                        thickness: 1,
+                      ),
+                    ),
+                    buttonpress == true
+                        ? Container(
+                            child: Column(
+                              children: [
+                                Text(ownerName,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20)),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Text(ownerEmail,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(ownerPhone,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Text(ownerAddress,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
+                                SizedBox(
+                                  height: 2,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(
+                                      height: 45,
+                                      width: 140,
+                                      // width: double.infinity,
+                                      child: ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.red),
+                                          foregroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white),
+                                          textStyle: MaterialStateProperty.all(
+                                            TextStyle(
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "call",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        // color: Colors.red,
+                                        onPressed: () {
+                                          setState(() {
+                                            _makePhoneCall('tel:$ownerPhone');
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 45,
+                                      width: 140,
+                                      // width: double.infinity,
+                                      child: ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.white),
+                                          foregroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.black),
+                                          side: MaterialStateProperty.all(
+                                              BorderSide(
+                                                  color: Colors.black,
+                                                  width: 1)),
+                                          textStyle: MaterialStateProperty.all(
+                                            TextStyle(
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Mail",
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        // color: Colors.white,
+                                        // textColor: Colors.black,
+                                        onPressed: () {
+                                          setState(() {
+                                            _makePhoneCall(
+                                                'mailto:$ownerEmail?subject=Product%20Info%20-$productname &body=Hello%20I%20like%20to%20know%20about%20your%20product%20$productname%20which%20is%20listed%20on%20studentzone');
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        : SizedBox(
+                            height: 2,
+                          ),
+                  ],
+                ),
+              )
             ],
           ),
-        ),
-        Text(imagecheck),
-        Text(
-          "Add Product",
-          style: TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        MyTextFormField(
-          name: "Product Name",
-          controller: ProductName,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        MyTextFormField(
-          name: "Price",
-          controller: Price,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        MyTextFormField(
-          name: "Descrption",
-          controller: Description,
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Text('Category'),
-        DropdownButton<String>(
-          value: dropdownValue,
-          icon: Icon(Icons.arrow_drop_down_circle),
-          iconSize: 24,
-          elevation: 18,
-          isExpanded: true,
-          style: const TextStyle(color: Colors.black),
-          underline: Container(
-            height: 2,
-            width: double.infinity,
-            color: Colors.red,
-          ),
-          onChanged: (String? newValue) {
-            setState(() {
-              dropdownValue = newValue!;
-            });
-          },
-          items: <String>[
-            'Others',
-            'Electronics',
-            'Books & Study Materials',
-            'Fashion',
-            'Furniture'
-          ].map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            );
-          }).toList(),
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        
-        isLoading == false
-            ? MyButton(
-                name: "add",
-                onPressed: () {
-                  submit();
-                },
-              )
-            : Center(
-                child: CircularProgressIndicator(),
-              ),
-            SizedBox(
-        height: 10,
+        ],
       ),
-      SizedBox(
-        height: 400,
-      ),
-  
-      ]
     );
-  }
-
-  void submit() async {
-    // UserCredential result;
-    try {
-      setState(() {
-        isLoading = true;
-      });
-
-      if (url == "null") {
-        url = imglink;
-      }
-
-      FirebaseFirestore.instance.collection("product").doc().set({
-        "Name": ProductName.text,
-        "price": Price.text,
-        "description": Description.text,
-        "image": url,
-        "userid": userUid,
-        "category": dropdownValue,
-        "upload_date":DateTime.now(),
-        // "image": AssetImage("images/logo.png")
-      });
-
-      setState(() {
-        isLoading = false;
-      });
-      ProductName.clear();
-      Price.clear();
-      Description.clear();
-      imagecheck = " ";
-      url = "null";
-      imglink =
-          "https://firebasestorage.googleapis.com/v0/b/studentzone-55d7c.appspot.com/o/uploadimg.jpg?alt=media&token=80d71180-2ba7-46c8-b729-007c66558dd4";
-      Fluttertoast.showToast(
-        msg: "product uploaded successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-      );
-    } on PlatformException catch (error) {
-      var message = "Please Check Your Internet Connection ";
-      if (error.message != null) {
-        message = error.message!;
-      }
-      _scaffoldKey.currentState!.showSnackBar(SnackBar(
-        content: Text(message.toString()),
-        duration: Duration(milliseconds: 1200),
-        backgroundColor: Theme.of(context).primaryColor,
-      ));
-
-      setState(() {
-        isLoading = false;
-      });
-    } catch (error) {
-      _scaffoldKey.currentState!.showSnackBar(SnackBar(
-        content: Text(error.toString()),
-        duration: Duration(milliseconds: 600),
-        backgroundColor: Theme.of(context).primaryColor,
-      ));
-
-      print(error);
-      ProductName.clear();
-      Price.clear();
-      Description.clear();
-      imagecheck = " ";
-      Fluttertoast.showToast(
-        msg: "System error occured try contacting admin",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-      );
-    }
-
-    // setState(() {
-    //   isLoading = false;
-    // });
   }
 }
