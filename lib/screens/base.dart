@@ -39,16 +39,7 @@ class _baseState extends State<base> {
         currentIndex: _currentIndex,
         onTap: onTabTapped,
         items: [
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.home),
-          //   title: Text("Screen 1"),
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.home),
-          //   title: Text("Screen 2"),
-          // ),
-          // BottomNavigationBarItem(
-          //     icon: Icon(Icons.home), title: Text("Screen 3")),
+         
 
           /// Home
           SalomonBottomBarItem(
