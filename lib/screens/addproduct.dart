@@ -232,7 +232,7 @@ class _addproductState extends State<addproduct> {
         "userid": userUid,
         "category": dropdownValue,
         "upload_date":DateTime.now(),
-        // "image": AssetImage("images/logo.png")
+        
       });
 
       setState(() {
@@ -283,8 +283,6 @@ class _addproductState extends State<addproduct> {
       );
     }
 
-    // setState(() {
-    //   isLoading = false;
-    // });
+    
   }
 }

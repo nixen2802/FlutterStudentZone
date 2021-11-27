@@ -37,9 +37,7 @@ class _editproductsState extends State<editproducts> {
       setState(() {
         isLoading = true;
       });
-      // result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      //     email: email.text, password: password.text);
-      // print(result);
+     
 
       FirebaseFirestore.instance.collection("User").doc(userUid).update({
         "UserName": userName1.text,
@@ -153,17 +151,7 @@ class _editproductsState extends State<editproducts> {
           SizedBox(
             height: 10,
           ),
-          // PasswordTextFormField(
-          //   obserText: obserText,
-          //   name: "password1",
-          //   controller: password1,
-          //   onTap: () {
-          //     FocusScope.of(context).unfocus();
-          //     setState(() {
-          //       obserText = !obserText;
-          //     });
-          //   },
-          // ),
+         
           SizedBox(
             height: 10,
           ),

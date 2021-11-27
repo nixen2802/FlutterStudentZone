@@ -2,7 +2,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:studentzone/screens/register.dart';
 import 'package:studentzone/screens/register1.dart';
 import 'package:studentzone/widgets/changescreen.dart';
 import 'package:studentzone/widgets/mytextformfield.dart';

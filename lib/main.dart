@@ -9,9 +9,7 @@ import 'package:studentzone/screens/login1.dart';
 import 'package:studentzone/screens/productdetail.dart';
 import 'package:studentzone/screens/splashscreen.dart';
 import 'screens/splashscreen.dart';
-import 'screens/login.dart';
 import 'screens/productdetail.dart';
-import 'screens/register.dart';
 import 'screens/register1.dart';
 import 'screens/profile.dart';
 import 'screens/base.dart';
@@ -60,10 +58,8 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           splashscreen.routeName: (context) => splashscreen(),
-          login.routeName: (context) => login(),
           login1.routeName: (context) => login1(),
-          register.routeName: (context) => register1(),
-          register.routeName: (context) => register(),
+          register1.routeName: (context) => register1(),
           category.routeName: (context) => category(),
           productdetail.routeName: (context) => productdetail(
                 doc: detaildoc, uiduser: "12345",
@@ -76,48 +72,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Student Zone',
-//       theme: new ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFFFF)),
-//       home: splashscreen(),
-//       routes: {
-//         splashscreen.routeName: (context) => splashscreen(),
-//         login.routeName: (context) => login(),
-//         login1.routeName: (context) => login1(),
-//         register.routeName: (context) => register1(),
-//         register.routeName: (context) => register(),
-//         profile.routeName: (context) => profile(),
-//         base.routeName: (context) => base(),
-//       },
-//     );
-//   }
 
- 
-// class MyHomePage extends StatefulWidget {
-//   MyHomePage({Key? key, required this.title}) : super(key: key);
-
-//   final String title;
-
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         resizeToAvoidBottomInset: false,
-//         appBar: AppBar(
-//           title: Text(widget.title),
-//           backgroundColor: Colors.red,
-//         ),
-        
-     
-
-//         );
-//   }
 

@@ -153,17 +153,7 @@ class _editprofileState extends State<editprofile> {
           SizedBox(
             height: 10,
           ),
-          // PasswordTextFormField(
-          //   obserText: obserText,
-          //   name: "password1",
-          //   controller: password1,
-          //   onTap: () {
-          //     FocusScope.of(context).unfocus();
-          //     setState(() {
-          //       obserText = !obserText;
-          //     });
-          //   },
-          // ),
+          
           SizedBox(
             height: 10,
           ),

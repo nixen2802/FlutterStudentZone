@@ -92,52 +92,5 @@ class _baseState extends State<base> {
   }
 }
 
-    // int _selectedIndex = 4;
-    // return Scaffold(
-    //   resizeToAvoidBottomInset: false,
-    //   appBar: AppBar(
-    //     backgroundColor: Colors.red,
-    //   ),
-      
-
-    //    bottomNavigationBar: SalomonBottomBar(
-    //     currentIndex: _selectedIndex,
-    //     onTap: (i) => setState(() => _selectedIndex = i),
-    //     items: [
-    //       /// Home
-    //       SalomonBottomBarItem(
-    //         icon: Icon(Icons.home, color: Colors.black),
-    //         title: Text(
-    //           "Home",
-    //           style: TextStyle(color: Colors.black),
-    //         ),
-    //       ),
-
-    //       /// My Products
-    //       SalomonBottomBarItem(
-    //         icon: Icon(Icons.person, color: Colors.black),
-    //         title: Text("My Products", style: TextStyle(color: Colors.black)),
-    //       ),
-
-    //       /// Notifications
-    //       SalomonBottomBarItem(
-    //         icon: Icon(Icons.notifications, color: Colors.black),
-    //         title: Text("Notifications", style: TextStyle(color: Colors.black)),
-    //       ),
-
-    //       /// Add Products
-    //       SalomonBottomBarItem(
-    //         icon: Icon(Icons.add, color: Colors.black),
-    //         title: Text("Add Product", style: TextStyle(color: Colors.black)),
-    //       ),
-
-    //       ///Profile
-    //       SalomonBottomBarItem(
-    //         icon: Icon(Icons.account_circle ,color: Colors.black),
-    //         title: Text("Profile", style: TextStyle(color: Colors.black)),
-    //       ),
-    //     ],
-    //   ),
-    // );
- 
+    
 
